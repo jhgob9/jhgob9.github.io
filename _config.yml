@@ -21,7 +21,7 @@ description: "It really is the best."
 baseurl: # the subpath of your site, e.g. "/blog"
 url: "https://jhgob9.github.io" # the base hostname & protocol for your site e.g. "https://jhgob9.github.io"
 logo: # path of site logo, e.g. "/images/logo.png"
-date_format: "%Y %M %-d"
+date_format: "%Y-%m-%d"
 read_time: # reading time estimates, e.g. true
 words_per_minute: # 200
 mathjax: # MathJax equations, e.g. true
