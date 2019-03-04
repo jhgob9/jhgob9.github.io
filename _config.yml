@@ -87,9 +87,9 @@ defaults:
 
 # Site Author
 author:
-  name:"꼬프로"
+  name: "꼬프로"
   picture:
-  email:"works.hoon@gmail.com"
+  email: "works.hoon@gmail.com"
   twitter:
   links:
     - title:
