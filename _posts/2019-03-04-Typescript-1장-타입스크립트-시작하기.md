@@ -24,7 +24,7 @@ categories: typescript
 타입 불일치가 발생해도 오류를 일으키지 않음  
 동일한 변수에 문자열, 숫자, 배열, 객체 를 할당 할 수 있음  
 오류 발생의 가능성이 높음  
-{% highlight javascript linenos %}
+{% highlight javascript %}
 var num = 1;
 num += 1;
 console.log(typeof(num)); // number 출력
@@ -38,7 +38,7 @@ console.log(num); // str1 출력
 ### 배열
 자바스크립트의 동적 타입 결정이 실패하는 매우 일반적인 예
 배열일 때는 slice 함수가 동작하지만 배열이 아니면 에러가 발생
-{% highlight javascript linenos %}
+{% highlight javascript %}
 var score = [1,2,3,4,5,6];
 console.log( score.slice(2,4) ); // [3,4] 반환
 score = 10;
@@ -49,7 +49,7 @@ console.log( score.slice(2,4) ); // 에러발생
 따옴표로 묶인 숫자는 문자열로 판단  
 하지만 if문에서 숫사 상수와 비교하면 자동으로 문자열을 숫자로 변환하여 시도  
 비교시 === 을 사용하면 자동변환이 되지 않음
-{% highlight javascript linenos %}
+{% highlight javascript %}
 var result = '1';
 console.log( result == 1 ); // true
 console.log( result === 1 ); // false
@@ -63,7 +63,7 @@ console.log( result === 1 ); // false
 타입스크립트는 변수, 파라미터 및 함수의 반환 값에 타입을 추가  
 동일한 변수에 충돌하는 타입 발생시 식별 가능
 
-> 타입스크립트에는 '''any''' 라는 특수한 타입이 있음  
+> 타입스크립트에는 'any' 라는 특수한 타입이 있음  
 > 변수의 타입이 확실하지 않은 경우 사용  
 > 기존의 자바스크립트 코드를 타입스크립트로 전환 할 때 유용함 
 
@@ -71,7 +71,7 @@ console.log( result === 1 ); // false
 
 ## Typescript 구조대
 
-타입스크립트는 크로스플랫폼 언어, 윈도우/리눅스/맥OS에서 작동
+타입스크립트는 크로스플랫폼 언어, 윈도우/리눅스/맥OS에서 작동  
 대규모 개발에서의 복잡성을 관리 할 수 있도록 정적 타입 결정, 모듈 및 클래스를 사용한 캡슐화, 사용자 정의 타입, 인터페이스 등과 같은 기능을 제공  
 
 ---
@@ -88,7 +88,7 @@ String, Number, Boolean 이외에 Typle, Enum, Never 추가 됨
 
 ## Typescript 와 Javascript 비교
 
-{% highlight javascript linenos %}
+{% highlight javascript %}
 function getlargestNumber(arr){
 	result = 0;
 	for (index = 0; index < arr.length; index++) {
@@ -108,7 +108,7 @@ highestScore = getlargestNumber(score);
 console.log(highestScore);
 {% endhighlight %}
 
-위의 코드를 실행하면 getlargestNumber에서 true를 반환
+위의 코드를 실행하면 getlargestNumber에서 true를 반환  
 이 코드의 잠재적 버그는
 - result, index, score, highestScore 변수들을 var 이나 let를 사용해서 선언되지 않았기 때문에 해당 함수내의 지역 변수임
 - result에 가장 큰 숫자 값을 저장하고 result에 저장된 값을 기반으로 boolean 값을 다시 할당
@@ -121,7 +121,7 @@ console.log(highestScore);
 8줄은 result는 숫자라고 추론하고 다시 boolean으로 바꿀수 없다고 경고 함  
 첫줄의 arr 매개변수의 타입을 정의하지 않았기 때문에 오류를 경고함, 이를 any 타입으로 지정  
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 function getlargestNumber(arr: number[]){
 	let result = 0;
 	for (let index = 0; index < arr.length; index++) {
@@ -192,9 +192,9 @@ TypeScript는 ES6 기능을 대부분 사용 할 수 있고 타입과 같은 일
 ### 제어 흐름 분석(Control flow analysis)
 
 코드흐름을 기반으로 타입 분석을 제공  
-여러 타입의 변수가 있고 처리 로직이 변한ㄴ 경우 논리적으로 오류를 줄이는데 도음이 됨
+여러 타입의 변수가 있고 처리 로직이 변한 경우 논리적으로 오류를 줄이는데 도음이 됨
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 function projectStatus(x:string|number){
 	if(typeof x === 'string'){ // x는 string 이거나 number 타입
 		x = 10;
@@ -213,7 +213,7 @@ console.log(projectStatus('10'));
 **클래스** : 공통기능을 포함하는 컨테이너, private/public/protected와 같은 접근 제어자를 사용하여 필수 필드만 노출  
 **모듈** : 클래스의 컨테이너이며 특정 기능을 제공하는 클래스 집하에 또 다른 수준의 캡슐화를 제공   
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 class News{
 	public channelNumber : number;
 	public newsTitle : string;
@@ -231,7 +231,7 @@ espn.url = 'http://go.espn.com'; // 'url' 속성은 private이며 'News' 클래�
 자식 클래스에서 extends 키워드를 사용해 부모 클래스를 참조  
 자식 클래스는 부모 클래스의 기능을 확장하여 부모 클래스의 모든 public 멤버에 접근 가능  
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 class Editor{
 	constructor(
 		public name : string,
@@ -267,7 +267,7 @@ VisualStudioCode의 인스턴트는 details 메서드를 상속
 인터페이스는 순수한 TypeScript 개념 ECMAScript의 일부가 아님  
 자바스크립트로 변환 될 때 인터페이스는 변환되지 않음  
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 interface Planet{
 	name: string,
 	weather: string
@@ -284,7 +284,7 @@ let planet: Planet = new Earth();
 객체의 프로퍼티가 동일하다면 다른 식별자에도 객체를 할당 할 수 있음  
 두개의 객체가 동일한 프로퍼티를 가지고 있으면 동일한 타입으로 간주 됨  
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 interface Planet{
 	name: string,
 	weather: string
@@ -332,13 +332,12 @@ import를 사용해서 접근 가능
 | interface  | 클래스에 구현될 계약을 정의, 프로퍼티와 함수선언을 가질 수 있음  |
 | implements  | 컴파일러에게 클래스에 의해 구현될 인터페이스를 알려주는 키워드  |
 | ...  | 나머지 파라미터, 함수가 여러 파라미터를 배열로 받을 수 있게 함  |
-|   |   |
 | =>  | 뚱뚱한 화살표 함수, 함수를 선언하는 대안을 제공  |
 | module  | 클래스를 담는 컨테이너  |
 | import / export  | 모듈의 어떤 멤버가 export되고 import될지 정의  |
 | generics  | 제네릭으로 다른 데이터 다입을 수용할 수 있는 함수를 작성, 재사용 가능한 함수를 작성하라 수 있게 해줌  |
 | enum  | 열거형으로 숫자 값과 연결된 상수를 정의할 수 있음  |
-| iterators   | System.iterator를 구현한 어떤 객체도 열거 가능, 객체가 반복할 수 있는 값의 목록을 반환 한다는 것을 의미  |
+| iterators | System.iterator를 구현한 어떤 객체도 열거 가능, 객체가 반복할 수 있는 값의 목록을 반환 한다는 것을 의미  |
 
 ---
 
@@ -426,7 +425,7 @@ ts 파일과 동일한 위치에 같은 이름의 .js 파일을 생성
 ITodo에 인터페이스 구현  
 name, description, completed 라는 세가지 프로퍼티  
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 interface ITodo{
     name:string;
     description: string;
@@ -434,9 +433,9 @@ interface ITodo{
 }
 {% endhighlight %}
 
-다음과 같이 세개의 변수를 마들고 생성자 함수에서 값을 할당  
+다음과 같이 세개의 변수를 만들고 생성자 함수에서 값을 할당  
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 class Todo implements ITodo{
     constructor(
 		public name: string,
@@ -451,7 +450,7 @@ TodoList 클래스에는 애플리케이션의 모든 로직이 들어있음
 createTodoItem : 모든 Todo 태스크를 생성  
 allTodoItems : 모든 Todo 태스크를 반환  
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 class TodoList{
     public static allTodos: Todo[]= new Array;
 
@@ -472,7 +471,7 @@ class TodoList{
 기본적으로 클래스의 모든 프로퍼티와 함수는 public  
 todo.ts 파일을 컴파일 하면 아래와 같은 코드가 생성됨  
 
-{% highlight javsscript linenos %}
+{% highlight javascript %}
 var Todo = /** @class */ (function () {
     function Todo(name, description, completed) {
         this.name = name;
@@ -503,7 +502,7 @@ createTodoItem 와 allTodoItems 메서드는 자바스크립트의 프로토타�
 
 ### TypeScript의 함수
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 window.onload = function(){
     let task= <HTMLInputElement>document.getElementById("todoName");
     let description = <HTMLInputElement>document.getElementById("todoDescription");
