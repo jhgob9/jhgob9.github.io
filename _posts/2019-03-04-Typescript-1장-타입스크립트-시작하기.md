@@ -177,6 +177,8 @@ TypeScript는 ES6 기능을 대부분 사용 할 수 있고 타입과 같은 일
 4. TypeScript 기능 : 사용가능한 TypeScript 기능들, 언어서비스와 코어 컴파일러의 추상적인 개념
 5. 에디터 플러그인 : 다양한 에디터에서 자동빌드, 인텔리센스, 에러탐지와 같은 기능들을 제공
 
+![타입스크립트 주요컴포넌트 5개]({{ "/assets/images/img2.gif" | absolute_url }})
+
 ---
 
 ## 주요기능
@@ -357,5 +359,184 @@ tsc 도움말
 > tsc -h
 
 ### TypeScript 에디터
+
+에디터를 지원함으로서 인텔리센스, 문장완성 및 오류 강조표시 등과 깉은 기능을 제공함  
+
+- Visual Studio 2013/2015/2017
+- Eclipse
+- Sulime
+- WebStrorm
+- Atom
+- Visual Studio Code
+
+### Visual Studio
+
+파일을 .ts 확장자로 저장만 하면 됨
+
+### VS Code
+
+따로 컴파일러를 설치해야 함  
+파일 단위 개발 : 별도의 명시적인 선인이 없는 한 개별 파일 한개가 프로젝트의 범위가 됨  
+명시적 선언 후 개발 : 폴더를 만들고 그 안에 tsconfig.json 파일을 생성하여 루트 폴더임을 지정하는 방법, 터미널을 열고 아래 코드 입력  
+
+> tsc --init
+
+커멘트 팔레트를 통해 다양한 기능을 실행(빌드, 테마, 디버그 등)
+
+---
+
+## TypeScript 컴파일러
+
+tsc로 불리며 타입스크립트 코드를 자바스크립트로 변환  
+
+> tsc app.ts
+
+app.ts 코드를 빌드하고 자바스크립트로 변환  
+ts 파일과 동일한 위치에 같은 이름의 .js 파일을 생성  
+에러가 있는 경우 커멘트에 표시해줌  
+
+| 컴파일러 옵션 | 타입 | 설명 |
+|---|---|---|
+| allowUnusedLabels | boolean | 기본값은 false. 컴파일러가 사용하지 않은 레이블을 표시할 지 여부를 지정 |
+| alwaysStrict | boolean | 기본값은 false. strict mode로 컴파일되고 소스 파일에 use strict를 노출 |
+| module | string | 사용할 모듈 타입 지정 : none, commonjs, amd, system, umd, es2015 또는 ESNext |
+| moduleResolution | string | 모듈이 어떻게 해석되는지 결정. Classic 또는 None |
+| nolmplicitAny | boolean | any 타입으로 예샹되는 코드를 발견하며 오류를 발생. 자바스크립트 프로젝트를 점전적으로 타입스크립트로 마이그레이션하려는 경우 해제하는 것이 좋음 |
+| nolmplicitReturn | boolean | 기본값 false. 코드에서 값을 반환하지 않으면 오류를 발생 |
+| noUnusedLocals | boolean | 코드에 사용되지 않은 local 변수가 있는 경우 오류를 발생 |
+| noUnusedParameter | boolean | 코드에 사용되지 않은 파라미터가 있으면 오류 발생 |
+| outDir | string | 출력 폴더 지정 |
+| outFile | strong | 결과를 연결하여 파일로 출력. 연결 순서는 명령 행에서 컴파일러로 전달된 파일목록과 3개의 슬래시 그리고 import 구문으로 결정 |
+| remoceComments | boolean | /*!로 시작하는 저작권 헤더 주석을 제외하고 모든 주석을 제거 |
+| sourcemap | boolean | map 파일을 생성 |
+| Target | string | ECMAScript 대상 버전을 지정. ES3(기본값) |
+| Watch |   | 감시모드 실행. 변경사항이 생기면 컴파일 다시 시작 |
+
+---
+
+## TypeScript TODO 목록 어플리케이션
+
+아래의 기능을 지원
+
+- TODO 목록에 설명이 포함된 새 항목 추가
+- 모든 TODO 목록 조회
+
+### todo.ts
+
+ITodo에 인터페이스 구현  
+name, description, completed 라는 세가지 프로퍼티  
+
+{% highlight typescript linenos %}
+interface ITodo{
+    name:string;
+    description: string;
+    completed: boolean;
+}
+{% endhighlight %}
+
+다음과 같이 세개의 변수를 마들고 생성자 함수에서 값을 할당  
+
+{% highlight typescript linenos %}
+class Todo implements ITodo{
+    constructor(
+		public name: string,
+		public description: string,
+		public completed: boolean
+	){}
+}
+{% endhighlight %}
+
+TodoList 클래스에는 애플리케이션의 모든 로직이 들어있음  
+모든 Todo 요소를 저장하는 Todo 배열을 static 프로퍼티가 가지고 있음  
+createTodoItem : 모든 Todo 태스크를 생성  
+allTodoItems : 모든 Todo 태스크를 반환  
+
+{% highlight typescript linenos %}
+class TodoList{
+    public static allTodos: Todo[]= new Array;
+
+    createTodoItem(name:string,description:string):number {
+        let newItem = new Todo(name,description, false);
+        let totalCount: number = TodoList.allTodos.push(newItem);
+        return totalCount;
+	}
+	
+    allTodoItems():Todo[]{
+        return TodoList.allTodos;
+    }
+}
+{% endhighlight %}
+
+### TypeScript의 클래스
+
+기본적으로 클래스의 모든 프로퍼티와 함수는 public  
+todo.ts 파일을 컴파일 하면 아래와 같은 코드가 생성됨  
+
+{% highlight javsscript linenos %}
+var Todo = /** @class */ (function () {
+    function Todo(name, description, completed) {
+        this.name = name;
+        this.description = description;
+        this.completed = completed;
+    }
+    return Todo;
+}());
+var TodoList = /** @class */ (function () {
+    function TodoList() {
+    }
+    TodoList.prototype.createTodoItem = function (name, description) {
+        var newItem = new Todo(name, description, false);
+        var totalCount = TodoList.allTodos.push(newItem);
+        return totalCount;
+    };
+    TodoList.prototype.allTodoItems = function () {
+        return TodoList.allTodos;
+    };
+    TodoList.allTodos = new Array;
+    return TodoList;
+}());
+{% endhighlight %}
+
+각 클래스는 즉시 호출 함수 표현식으로 생성  
+변수 Todo와 TodoList에 각각 할당  
+createTodoItem 와 allTodoItems 메서드는 자바스크립트의 프로토타입 함수로 변환  
+
+### TypeScript의 함수
+
+{% highlight typescript linenos %}
+window.onload = function(){
+    let task= <HTMLInputElement>document.getElementById("todoName");
+    let description = <HTMLInputElement>document.getElementById("todoDescription");
+	document.getElementById("add").addEventListener('click',()=>toAlltask(task.value, description.value));
+}
+function toAlltask(task:string, description:string){
+	let todo = new TodoList();
+    todo.createTodoItem(task, description);
+    let div = <HTMLDivElement>document.getElementById("todoList");
+    let list="<dl class='dl-horizontal'>";
+    for(let index=0; index < TodoList.allTodos.length;index++){
+        list = list + " <dt> " + TodoList.allTodos[index].name + ' </dt> <dd>' + TodoList.allTodos[index].description + '</dd>';
+    }
+    list += "</dl>"
+    div.innerHTML = list;
+    (<HTMLInputElement>document.getElementById("todoName")).value = "";
+    (<HTMLInputElement>document.getElementById("todoDescription")).value="";
+}
+{% endhighlight %}
+
+document.getElementById가 HTMLInputElement 타입을 반환  
+toAlltask 함수는 add 버튼을 클릭할 때마다 호출, 사용자가 입력한 이름과 설명을 파라미터로 하여 TodoList 클래스의 createTodoItem 함수를 호출한 다음 모든 Todo 항목의 업데이트괸 목록을 가져와서 div에 할당  
+
+### TypeScript 코드 디버깅
+
+브라우져는 .ts 파일을 인식하지 못함  
+.map 확장자를 가진 특수한 파일을 사용하여 브라우져에 직접 디버깅하는 방법을 제공  
+
+---
+
+## 놀이터(Playground)
+
+TypeScript 공식 웹사이트는 타입스크립트 코드를 자바스크립트로 변환시켜 볼 수 있는 툴을 제공   
+[타임스크립트 플레이그라운드](https://www.typescriptlang.org/play/){: target="_blank" }
 
 
