@@ -786,7 +786,6 @@ Angular는 이 모듈 파일을 사용하여 연관된 컴포넌트를 식별하
     import { News } from './../../../module/news';
     import { Article } from './../../../module/article';
     {% endhighlight %}
-
 2. newsComponent 클래스 내에 News 모델의 객체 만들기
     {% highlight typescript %}
     latest_news: News = new News();
