@@ -682,12 +682,12 @@ HTML로 작성되며 해당 컴포넌트에 표현된 엘리먼트를 자세히 
 두 가지 방법으로 인라인 템플릿 생성 가능  
 
 - @Component 데코레이션 안에 template 속성을 사용하고 HTML을 정의
-    {% highlight typescript linenos %}
+    {% highlight typescript %}
     template: '<h1>article.title</h1>'
     {% endhighlight %}
 
 - HTML이 두줄 이상인 경우 ES2015 백틱(숫자1키보드 왼쪽 키)을 사용하여 여러줄로 정의 가능
-    {% highlight typescript linenos %}
+    {% highlight typescript %}
     template:`
           <li>
              <div>
@@ -697,7 +697,7 @@ HTML로 작성되며 해당 컴포넌트에 표현된 엘리먼트를 자세히 
     {% endhighlight %}
 
 - 별도의 파일로 정의
-    {% highlight typescript linenos %}
+    {% highlight typescript %}
     templateUrl: './new.component.html'
     {% endhighlight %}
 
@@ -712,7 +712,7 @@ HTML로 작성되며 해당 컴포넌트에 표현된 엘리먼트를 자세히 
 클래스 앞에 export 키워드를 사용하면 클래스를 애플리케이션의다른 컴포넌트에서 사용 할 수 있음  
 아래 코드는 클래스의 예  
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 export class itemComponent{
    item: string;
    itemCount: number;
@@ -757,7 +757,7 @@ Angular에게 클래스를 컴포넌트로 인식 시키려면 해당 클래스�
 
 import 키워드 문법 샘플
 
-{% highlight typescript linenos %}
+{% highlight typescript %}
 import { Component, Oninit } from '@angular/core'
 {% endhighlight %}
 
@@ -782,43 +782,43 @@ Angular는 이 모듈 파일을 사용하여 연관된 컴포넌트를 식별하
 ### newsComponent 비즈니스 로직
 
 1. 먼저 필요한 모델 news와 Article에 대한 참조를 가져옴
-   {% highlight typescript linenos %}
-   import { News } from './../../../module/news';
-   import { Article } from './../../../module/article';
-   {% endhighlight %}
+    {% highlight typescript %}
+    import { News } from './../../../module/news';
+    import { Article } from './../../../module/article';
+    {% endhighlight %}
 
 2. newsComponent 클래스 내에 News 모델의 객체 만들기
-   {% highlight typescript linenos %}
-   latest_news: News = new News();
-   {% endhighlight %}
-   news 객체를 생성하는 private 메서드를 생성  
-   이 메서드는 화면에 표시할 하드 코드된 객체를 생성하는 것  
-   {% highlight typescript linenos %}
+    {% highlight typescript %}
+    latest_news: News = new News();
+    {% endhighlight %}
+    news 객체를 생성하는 private 메서드를 생성  
+    이 메서드는 화면에 표시할 하드 코드된 객체를 생성하는 것  
+    {% highlight typescript %}
     private seedNewsData(): News{
-      let news: News = new News();
-      news.status = "ok";
-      news.source = "nfl";
-      news.sortBy = "top";
-      news.articles = this.seedArcticles();
-      return news;
-   }
-   private seedArcticles():Article[]{
-       let articles: Article[] = new Array();
-      articles.push({
-      });
-      ..........
-      return articles;
-     }
-   {% endhighlight %}
-   이 private 메서드는 ngOnInit 메서드에서 호출  
-   ngOnInit 메서드는 Angular에서 제공하는 라이프 사이클 후크 중 하나  
-   라이프 사이클 후크는 컴포넌트 로드 및 언로드 이벤트에 논리를 추가하기 위해 Angular가 노출하는 메서드  
-   ngOnInit 메서드는 Angular 코어 모듈에서 노출  
-   {% highlight typescript linenos %}
-   ngOnInit() {
-      this.latest_news = this.seedNewsData();
-   }
-   {% endhighlight %}
+        let news: News = new News();
+        news.status = "ok";
+        news.source = "nfl";
+        news.sortBy = "top";
+        news.articles = this.seedArcticles();
+        return news;
+    }
+    private seedArcticles():Article[]{
+        let articles: Article[] = new Array();
+            articles.push({
+        });
+        ..........
+        return articles;
+    }
+    {% endhighlight %}
+    이 private 메서드는 ngOnInit 메서드에서 호출  
+    ngOnInit 메서드는 Angular에서 제공하는 라이프 사이클 후크 중 하나  
+    라이프 사이클 후크는 컴포넌트 로드 및 언로드 이벤트에 논리를 추가하기 위해 Angular가 노출하는 메서드  
+    ngOnInit 메서드는 Angular 코어 모듈에서 노출  
+    {% highlight typescript %}
+    ngOnInit() {
+        this.latest_news = this.seedNewsData();
+    }
+    {% endhighlight %}
 3. 뉴스 데이터를 새 객체에 할당하면 뉴스 프로퍼티를 새 컴포넌트의 HTML 템플릿에 바인딩할 수 있음
 
 ### newsComponent template 로직
@@ -836,7 +836,7 @@ Angular가 뉴스 개체의 모든 기사를 반복하고 article 변수에 할�
 도트(.) 구문을 사용하여 article 프로퍼티에 접근  
 
 Angular는 이중 중괄호 구문을 사용하여 클래스의 프로피티 값을 HTML에 바인딩 하는 것이 가능  
-{% highlight typescript %}
+{% highlight %}
 <p>
 	{{article.description}}
 </p>
