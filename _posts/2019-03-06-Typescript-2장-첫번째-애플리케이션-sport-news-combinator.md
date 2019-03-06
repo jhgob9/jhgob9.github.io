@@ -1,6 +1,6 @@
 ---
 title: "[Typescript] 2장 첫 번째 애플리케이션 Sport News Combinator"
-date: 2019-03-06 10:00:00 +0900
+date: 2019-03-06 21:00:00 +0900
 categories: typescript
 ---
 
