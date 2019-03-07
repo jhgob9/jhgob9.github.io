@@ -830,3 +830,31 @@ ngOnInit() {
 {% endhighlight %}
 
 뉴스 데이터를 새 객체에 할당하면 뉴스 프로퍼티를 새 컴포넌트의 HTML 템플릿에 바인딩할 수 있음
+
+### newsComponent template 로직
+
+Angular CLI에서 컴포넌트를 만들면 템플릿용으로 별도의 파일이 생성됨  
+이 파일을 사용하여 뉴스 세부 정보에 대한 HTML을 정의하고 컴포넌트에서 정의한 뉴스 속성을 바인딩하여 데이터를 표시  
+
+Angular 구조 지시자 *ngFor를 사용  
+
+{% highlight typescript %}
+<li *ngFor='let article of latest_news.articles'>
+{% endhighlight %}
+
+Angular가 뉴스 개체의 모든 기사를 반복하고 article 변수에 할당하도록 지시  
+도트(.) 구문을 사용하여 article 프로퍼티에 접근  
+
+Angular는 이중 중괄호 구문을 사용하여 클래스의 프로피티 값을 HTML에 바인딩 하는 것이 가능  
+{% highlight %}
+<p>
+	\{{article.description}}\
+</p>
+{% endhighlight %}
+
+---
+
+## SNC - 코드 실행
+
+ng serve 를 실행하여 브라우져에서 확인  
+http://localhost:4200
