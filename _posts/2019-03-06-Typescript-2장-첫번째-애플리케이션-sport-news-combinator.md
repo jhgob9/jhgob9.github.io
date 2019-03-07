@@ -727,3 +727,106 @@ export class itemComponent{
    }
 }
 {% endhighlight %}
+
+### 컴포넌트 메타데이터
+
+메타데이터는 데이터에 대한 정보를 의미  
+우리가 사용하는 데이터의 세부 정보를 제공할 때 이 세부 정보를 메타데이터라고 함  
+Angular에게 클래스를 컴포넌트로 인식 시키려면 해당 클래스가 어떤 것인지 메타데이터를 제공해야 함  
+메타데이터는 Angular에게 해당 컴포넌트의 템플릿, HTML의 CSS 스타일, 컴포넌트를 나타내는데 사용되는 selector와 같은 세부 정보를 제공  
+
+메타데이터는 클래스 상단에 데코레이터를 사용하여 정의  
+데코레이터는 ES7에서 제안된 개념으로 @ 기호로 데코레이터를 식별할 수 있음  
+
+- template/templateUrl : 컴포넌트의 템플릿을 정의
+- selector : 컴포넌트의 선택자 이름. 이 이름을 사용하여 로드할 HTML을 식별
+- styleUrls : 컴포넌트의 css 파일 경로를 정의. 인라인 또는 별도의 파일로 정의
+
+다음은 메타테이터 샘플  
+
+{% highlight typescript %}
+@Component({
+   selector: 'snc-news',
+   templateUrl: './news.component.html',
+   styleUrls: ['./news.component.css']
+})
+{% endhighlight %}
+
+### Import
+
+대부분의 경우 개발하려는 컴포넌트는 어느 정도 외부 함수 또는 클래스를 참조 함  
+이런 기능을 사용하려면 컴포넌트로 import  
+외부 메서드와 프로퍼티에 접근 가능  
+
+import 키워드 문법 샘플
+
+{% highlight typescript %}
+import { Component, Oninit } from '@angular/core'
+{% endhighlight %}
+
+### newsComponent
+
+newsComponent라는 첫번째 컴포너트를 만듦  
+뉴스 소스에서 읽은 최신 뉴스를 표시  
+애플리케이션을 시작할 때 로드할 주요 컴포넌트가 됨  
+
+Angular CLI는 애플리케이션용 컴포넌트를 생성하는 명령을 제공  
+기본 클래스를 생성할 뿐만 아니라 외부 템플릿도 생성하고 app 모듈 컴포넌트에 대한 참조도 추가  
+터미널을 열고 아래 구문을 입력하여 컴포넌트를 생성
+
+> ng generate component dashboard/news --spec false
+
+dsahboard 폴더에 news 폴더에 news 컴포넌트를 만듦  
+spec false 옵션은 테스트 케이스에 대한 spec 파일을 생성하지 않도록 지시  
+
+app.module.ts 파일이 업데이트 되며 app 폴더 하위에 있는 모든 컴포넌트를 정의  
+Angular는 이 모듈 파일을 사용하여 연관된 컴포넌트를 식별하고 적절히 로드  
+
+### newsComponent 비즈니스 로직
+
+먼저 필요한 모델 news와 Article에 대한 참조를 가져옴
+
+{% highlight typescript %}
+import { News } from './../../../module/news';
+import { Article } from './../../../module/article';
+{% endhighlight %}
+
+newsComponent 클래스 내에 News 모델의 객체 만들기
+
+{% highlight typescript %}
+latest_news: News = new News();
+{% endhighlight %}
+
+news 객체를 생성하는 private 메서드를 생성  
+이 메서드는 화면에 표시할 하드 코드된 객체를 생성하는 것  
+
+{% highlight typescript %}
+private seedNewsData(): News{
+   let news: News = new News();
+   news.status = "ok";
+   news.source = "nfl";
+   news.sortBy = "top";
+   news.articles = this.seedArcticles();
+   return news;
+}
+private seedArcticles():Article[]{
+   let articles: Article[] = new Array();
+      articles.push({
+   });
+   ..........
+   return articles;
+}
+{% endhighlight %}
+
+이 private 메서드는 ngOnInit 메서드에서 호출  
+ngOnInit 메서드는 Angular에서 제공하는 라이프 사이클 후크 중 하나  
+라이프 사이클 후크는 컴포넌트 로드 및 언로드 이벤트에 논리를 추가하기 위해 Angular가 노출하는 메서드  
+ngOnInit 메서드는 Angular 코어 모듈에서 노출  
+
+{% highlight typescript %}
+ngOnInit() {
+   this.latest_news = this.seedNewsData();
+}
+{% endhighlight %}
+
+뉴스 데이터를 새 객체에 할당하면 뉴스 프로퍼티를 새 컴포넌트의 HTML 템플릿에 바인딩할 수 있음
