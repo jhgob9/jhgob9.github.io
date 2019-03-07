@@ -323,3 +323,148 @@ age = '42'; // 컴파일 에러: string는 number에 할당할 수 없음
 배열 및 클래스와 같은 사용자 정의 타입에 대해서도 유형 검사를 수행  
 
 ---
+
+## TypeScript의 클래스
+
+클래스를 사용하여 프로퍼티와 메서드를 관리  
+객체지향 언어의 동작과 유사  
+
+### TypeScript의 객체지향 프로그래밍
+
+클래스의 형태로 코드를 모델링하면 직관적이고 재사용 가능한 코드 작성 가능  
+캡슐화, 다형성 및 상속과 같은 기능을 사용 가능  
+타입스크립트는 클래스와 인터페이스를 구현하여 객체지향적인 방식으로 코드를 작성  
+
+### 클래스의 이해
+
+{% highlight javascript %}
+function Name(firstName,lastName){
+   this.firstName = firstName;
+   this.lastName = lastName;
+   this.fullName = function(){
+      return this.firstName + ' ' + this.lastName;
+   }
+}
+{% endhighlight %}
+
+fullName 메서드는 Name 함수 안에 캡슐화되어 있음  
+함수에 메서드를 추가하는 다른 방법은 prototype 키워드를 사용하는 것  
+
+{% highlight javascript %}
+function Name(firstName,lastName){
+   this.firstName = firstName;
+   this.lastName = lastName;
+}
+Name.prototype.fullName = function(){
+   return this.firstName + ' ' + this.lastName;
+}
+{% endhighlight %}
+
+클래스가 없어도 문제를 해결할 수 있지만 대부분의 개발자 커뮤니티에서 선호하지 않는 방식  
+
+클래스는 공통적인 동작을 추상화하여 코드 재사용을 가능하게 함  
+
+{% highlight typescript linenos %}
+class News{
+   public channelNumber: number;
+   public newsTitle: string;
+   private author: string = 'ESPN';
+
+   formet():string{
+      return `${this.channelNumber} : ${this.newsTitle} was written by ${this.author};`
+   }
+}
+let espn = new News();
+espn.channelNumber = 1;
+espn.newsTitle = 'NFL Today';
+console.log( espn.formet() );
+{% endhighlight %}
+
+News 클래스에는 3개의 멤버 프로퍼티와 하나의 메서드가 있음  
+각 멤버에는 정의된 타입이 있으며 범위를 정의하는 접근 제어자가 있음  
+10행에서 new 키워드를 사용하여 클래스의 객체를 만듬  
+
+### 접근 제어자(access modififer)
+
+객체가 생성되면 도트(.) 연산자를 사용하여 클래스의 public 멤버에 엑세스 가능  
+espn 객체의 author 프로퍼티는 private으로 정의되어 있음으로 접근 불가  
+
+#### Public
+
+클래스 외부에서 자유롭게 엑세스 가능  
+명시적으로 지정하지 않으면 public을 기본 접근 제어자로 지정  
+
+### Private
+
+클래스 외부에서 엑세스 불가, 클래스 내부에서만 유효   
+
+### Protected
+
+상속 클래스에서 엑세스할 수 있다는 점을 제외하고는 private와 유사하게 동작  
+
+{% highlight typescript %}
+class base{
+   protected id: number;
+}
+class child extends base{
+   name: string;
+   detail():string{
+      return `$name has id: $this.id`;
+   }
+}
+{% endhighlight %}
+
+child 클래스는 base 클래스를 확장하였으므로, child 클래스의 id 프로퍼티에 엑세스 가능  
+child 클래스의 객체를 만들어도 외부에서는 id 프로퍼티에 엑세스 불가  
+
+### Readonly
+
+읽기 전용 접근 제어자, 값이 할당된 후 수정 불가  
+변수 선언 시 또는 생성자에서만 할당 가능  
+
+{% highlight typescript linenos %}
+class HelloWorld{
+   readonly name: string = 'John';
+
+   changeName(){
+      name = 'Jane';
+   }
+}
+{% endhighlight %}
+
+5행의 name 프로퍼티는 읽기 전용이므로 값을 할당할 수 없다는 오류가 발생  
+
+## 클래스에서 변환된 JavaScript
+
+타입스크립트는 자바스크립트의 상위집합이라는 점을 기억해야 함  
+브라우져는 타입스크립트에서 변환된 자바스크립트만 인식 함  
+tsconfig.json 파일에서 변환할 자바스크리브 버전을 선택 가능(ES3,ES5,ES6)
+
+> 아직 ES6의 호환성이 확보되지 않아 구버전의 브라우져 지원을 위해서는 ES5로 지정하는 것이 좋음
+
+{% highlight typescript linenos %}
+class News{
+   public channelNumber: number;
+   public newsTitle: string;
+   private author: string = 'ESPN';
+
+   formet():string{
+      return `${this.channelNumber} : ${this.newsTitle} was written by ${this.author};`
+   }
+}
+let espn = new News();
+espn.channelNumber = 1;
+espn.newsTitle = 'NFL Today';
+console.log( espn.formet() );
+{% endhighlight %}
+
+#### ES6 JavaScript
+
+TypeScript와 비슷하지만 타입과 접근제어자가 없음  
+
+#### ES5 JavaScript
+
+브라우저에서 지원되는 가장 보편적인 자바스크립트 버전  
+변환시 클래스를 함수로 변환, 클래스 내부의 메서드는 함수의 프로토타입 형태로 변환, let는 var로 변환  
+
+---
