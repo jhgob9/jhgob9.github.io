@@ -582,3 +582,83 @@ Angular CLI는 Angular 팀에서 권장하는 폴더 구조를 만듬
 - environments : 애플리케이션을 빌드할 때 환경 설정을 제공
 
 ---
+
+## 모델 만들기
+
+모델은 어떤 논리 데이터를 나타내는 엔티티  
+news와 article을 만들 것   
+article 모델은 특정 웹 사이트에서 가져온 기사를 나타냄  
+news 모델은 기사를 감싸고 있는 모델로 기사 배열을 가지고 있음  
+
+애플리케이션 초기 바인딩을 보여주기 위한 테이터를 하드코딩  
+
+{% highlight javascript %}
+{
+   "status": "ok",
+   "source": "nfl-news",
+   "sortBy": "top",
+   "articles":[
+      {
+         author:"Lakisha Jackson",
+            title:"Mike Williams denies report on season-ending surgery",
+            description:"Los Angeles Chargers first-round pick Mike Williams is denying reports that he might need season-ending back surgery.",
+            url:"http://www.nfl.com/news/story/0ap3000000821316/article/mike-williams-denies-report-on-seasonending-surgery",
+            urlToImage:"http://static.nfl.com/static/content/public/photo/2017/07/22/0ap3000000821315_thumbnail_200_150.jpg",
+            publishedAt:"2017-07-22T23:21:00Z"
+      },
+      {
+         author:"Jeremy Bergman",
+            title:"Tamba Hali, upset with snaps, launches tweetstorm",
+            description:"We've got ourselves a Saturday afternoon tweetstorm in late July, courtesy of Chiefs pass rusher Tamba Hali.",
+            url:"http://www.nfl.com/news/story/0ap3000000821309/article/tamba-hali-upset-with-snaps-launches-tweetstorm",
+            urlToImage:"http://static.nfl.com/static/content/public/photo/2017/07/22/0ap3000000821310_thumbnail_200_150.jpg",
+            publishedAt:"2017-07-22T20:30:00Z"
+      }
+   ]
+}
+{% endhighlight %}
+
+첫 번째 부분은 상태(status), 소스(source), 정렬기준(sortBy) 같은 웹 서비스 호출의 기본 정보를 제공  
+두 번째 부분은 웹사이트에서 반환되는 기사의 배열  
+
+- author
+- title
+- description
+- url
+- urlToImage
+- publishedAt
+
+src 폴더 아래에 module라는 새 폴더를 추가  
+이 폴더에는 애플리케이션의 데이터를 관리하는데 필요한 모든 모델이 포함  
+
+*article.ts 파일 추가*
+
+{% highlight typescript linenos %}
+export class Article{
+   author: string;
+   title: string;
+   description: string;
+   url: string;
+   urlToImage: string;
+   publishedAt: Date;
+}
+{% endhighlight %}
+
+웹 서비스 응답에서 확인한 모든 프로퍼티를 Article 클래스로 만들었음  
+
+*news.ts 파일 추가*
+
+{% highlight typescript linenos %}
+import { Article } from './article';
+export class News{
+   status: string;
+   source: string;
+   sortBy: string;
+   articles: Article[];
+}
+{% endhighlight %}
+
+Article의 상위 모델이며 기사 배열과 세부 상태 정보를 가짐  
+다른 파일을 참조해야 하므로 맨 위에 import를 해줌  
+
+---
