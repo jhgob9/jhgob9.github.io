@@ -846,11 +846,8 @@ Angular가 뉴스 개체의 모든 기사를 반복하고 article 변수에 할�
 도트(.) 구문을 사용하여 article 프로퍼티에 접근  
 
 Angular는 이중 중괄호 구문을 사용하여 클래스의 프로피티 값을 HTML에 바인딩 하는 것이 가능  
-{% highlight %}
-<p>
-	(이중중괄호)article.description(이중중괄호)
-</p>
-{% endhighlight %}
+
+![이중중괄호를 사용하여 바인딩한 코드]({{ "/assets/images/img12.gif" | absolute_url }})
 
 ---
 
