@@ -848,7 +848,7 @@ Angular가 뉴스 개체의 모든 기사를 반복하고 article 변수에 할�
 Angular는 이중 중괄호 구문을 사용하여 클래스의 프로피티 값을 HTML에 바인딩 하는 것이 가능  
 {% highlight %}
 <p>
-	\{{article.description}}
+	{{article.description}}
 </p>
 {% endhighlight %}
 
