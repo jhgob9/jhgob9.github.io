@@ -50,8 +50,7 @@ es6에 새로 도입되었으며 간단한 익명 함수를 작성하게 해줌
 => 를 기준으로 왼쪽에는 함수의 파라미터, 오른쪽에는 함수 본문  
 아래는 화살표 함수에서 파라미터를 관리 다양한 방법  
 
-- 빈 파라미터 : 파라미터가 없을 경우 빈 괄호를 사용
-    {% highlight typescript %}
+- 빈 파라미터 : 파라미터가 없을 경우 빈 괄호를 사용 {% highlight typescript %}
     () => console.log('Hello World!!');
 {% endhighlight %}
 
