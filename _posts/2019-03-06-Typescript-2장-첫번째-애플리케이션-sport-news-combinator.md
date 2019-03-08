@@ -35,18 +35,18 @@ NFL, Fox Sports, ESPN 및 BBC Sport에서 뉴스를 가져올 예정
 - 변수 : 타입스크립트에서 변수와 상수를 선언하는 방법
 - 타입 : 원시 타입과 사용자 정의 타입을 모두 포함하여 타입스크립가 제공하는 타입을 실습
 - 타입 추론 : 타입스크립트에서 타입 추론을 사용하여 타입을 식별하는 방법
-- 타입 호환성 : 타입스크립에는 멤버만을 기준으로 타입을 연관시켜주는 기능 실습
+- 타입 호환성 : 타입스크립트에는 멤버만을 기준으로 타입을 연관시켜주는 기능 실습
 
 > 타입은 타입스크립트에만 존재하는 개념이며 자바스크립로는 변환하지 않음. 디자인과 컴파일 시에만 사용
 
 ### 변수
 
 기존의 var 키워드가 있었고 ES2015에서는 새로운 키워드가 추가 됨 - let, const 키워드  
-var 키워드를 사용하여 변수를 선언할 수는 있지만 변수에 대한 범위 지정 및 액세스 방법에 관한 단점이 존재  
+var 키워드를 사용하여 변수를 선언할 수는 있지만 변수에 대한 범위 지정 및 액세스 방법에 관한 지정을 못하는 단점이 존재  
 
 ### var 키워드
 
-자바스크립트에는 전역변수와 전역변수가 존재  
+자바스크립트에는 전역변수와 지역변수가 존재  
 let를 사용하지 않고 var을 사용 할 경우 변수가 선언된 함수 내에서만 가능한 지역변수가 됨  
 동일한 범위를 공유하는 모든 함수에 액세스될 수 있음을 의미  
 중첩함수에서 내부함수는 외부함수의 변수에 접근 가능  
@@ -87,8 +87,7 @@ value 변수는 8행에서 선언되었지만 2행과 5행에서도 변수에 �
 ### let와 const 키워드
 
 변수에 블록 범위 지정을 제공, 끌어올림을 지원하지 않음  
-블록 범위 지정은 변수의 범위가 선언됨 범위로 제한  
-일반적으로 중괄호로 정의  
+블록 범위 지정은 변수의 범위가 선언됨 범위로 제한, 일반적으로 중괄호로 범위로 정의  
 변수가 루프 또는 if 조건 내에서 정의 된 경우 블록 외부에서 사용 할 수 없음  
 6행에서 x가 정의되지 않았다는 에러가 발생함  
 그러나 4행에서는 10을 정상적으로 출력  
@@ -97,9 +96,9 @@ value 변수는 8행에서 선언되었지만 2행과 5행에서도 변수에 �
 function letExample(hasValue){
    if(hasValue){
       let x = 10;
-      console.log(x);
+      console.log(x); // 정상 출력
    }
-   console.log(x);
+   console.log(x); // x가 정의되지 않았다는 오류 발생
 }
 letExample(true);
 {% endhighlight %}
@@ -114,13 +113,16 @@ const 키워드는 let 키워드와 동일한 범위 지정 원칙을 따름
 
 ## TypeScript의 타입
 
-자바스크립트에서는 명시적 변수 타입 지정이라는 개념이 없어서 런타임 시 오류의 주요 원인이 됨  
-자바스크립트는 하나의 변수에 어떤 타입을 할당 했더라도 동일한 변수명으로 다른 타입을 설정할 수 있음  
-타입스크립트는 타입 어노베이션을 사용하여 각 변수, 함수, 객체 또는 클래스에 타임을 할당할 수 있음  
-타입스크립트는 정적 또는 동적 타입 검사를 함께 수행  
+**자바스크립트**  
+명시적 변수 타입 지정이라는 개념이 없어서 런타임 시 오류의 주요 원인이 됨  
+하나의 변수에 어떤 타입을 할당 했더라도 동일한 변수명으로 다른 타입을 설정할 수 있음  
+
+**타입스크립트**  
+타입 어노베이션을 사용하여 각 변수, 함수, 객체 또는 클래스에 타임을 할당할 수 있음  
+정적 또는 동적 타입 검사를 함께 수행  
 타입은 컴파일러가 해당 변수가 따라야 하는 규칙을 제공  
-타입스크립트는 선택적인 정적 타임 언어이므로 각 변수나 함수에 타입을 반드시 할당 할 필요는 없음  
-타입스크립트는 변수 또는 코드 흐름에 맞추어 할당 된 값을 기반으로 변수의 타입을 추론  
+선택적인 정적 타임 언어이므로 각 변수나 함수에 타입을 반드시 할당 할 필요는 없음  
+변수 또는 코드 흐름에 맞추어 할당 된 값을 기반으로 변수의 타입을 추론  
 any 키워드를 지정하여 변수의 타이블 명시적으로 거부하는 옵션을 제공, 타입검사를 하지 않음  
 any를 사용하면 기존 자바스크립트를 타입스크립트로 마이그레이션이 용이함  
 
@@ -203,7 +205,7 @@ let hasValue: boolean = false;
 let scores: number[] = [10,20,30,40];
 {% endhighlight %}
 
-배열은 0 인덱스를 기바으로 액세스  
+배열은 0 인덱스를 기반으로 액세스  
 첫 번째 요소는 0번째 인덱스에 있음  
 
 {% highlight typescript %}
@@ -414,7 +416,7 @@ class child extends base{
 }
 {% endhighlight %}
 
-child 클래스는 base 클래스를 확장하였으므로, child 클래스의 id 프로퍼티에 엑세스 가능  
+child 클래스는 base 클래스를 확장하였으므로, base 클래스의 id 프로퍼티에 엑세스 가능  
 child 클래스의 객체를 만들어도 외부에서는 id 프로퍼티에 엑세스 불가  
 
 ### Readonly
@@ -427,7 +429,7 @@ class HelloWorld{
    readonly name: string = 'John';
 
    changeName(){
-      name = 'Jane';
+      name = 'Jane'; // 오류 발생
    }
 }
 {% endhighlight %}
@@ -438,7 +440,7 @@ class HelloWorld{
 
 타입스크립트는 자바스크립트의 상위집합이라는 점을 기억해야 함  
 브라우져는 타입스크립트에서 변환된 자바스크립트만 인식 함  
-tsconfig.json 파일에서 변환할 자바스크리브 버전을 선택 가능(ES3,ES5,ES6)
+tsconfig.json 파일에서 변환할 자바스크립트 버전을 선택 가능(ES3,ES5,ES6)
 
 > 아직 ES6의 호환성이 확보되지 않아 구버전의 브라우져 지원을 위해서는 ES5로 지정하는 것이 좋음
 
@@ -460,9 +462,40 @@ console.log( espn.formet() );
 
 #### ES6 JavaScript
 
+{% highlight typescript linenos %}
+class News {
+    constructor() {
+        this.author = 'ESPN';
+    }
+    formet() {
+        return `${this.channelNumber} : ${this.newsTitle} was written by ${this.author};`;
+    }
+}
+let espn = new News();
+espn.channelNumber = 1;
+espn.newsTitle = 'NFL Today';
+console.log(espn.formet());
+{% endhighlight %}
+
 TypeScript와 비슷하지만 타입과 접근제어자가 없음  
 
 #### ES5 JavaScript
+
+{% highlight typescript linenos %}
+var News = /** @class */ (function () {
+    function News() {
+        this.author = 'ESPN';
+    }
+    News.prototype.formet = function () {
+        return this.channelNumber + " : " + this.newsTitle + " was written by " + this.author + ";";
+    };
+    return News;
+}());
+var espn = new News();
+espn.channelNumber = 1;
+espn.newsTitle = 'NFL Today';
+console.log(espn.formet());
+{% endhighlight %}
 
 브라우저에서 지원되는 가장 보편적인 자바스크립트 버전  
 변환시 클래스를 함수로 변환, 클래스 내부의 메서드는 함수의 프로토타입 형태로 변환, let는 var로 변환  
@@ -559,7 +592,7 @@ node와 npm이 기본으로 설치되어 있어야 함
 
 >ng new SportsNewsCombinator
 
-SportsNewsCombinator 폴더가 생성되고 완련 파일들이 설치  
+SportsNewsCombinator 폴더가 생성되고 관련 파일들이 설치  
 내장 노드 서버를 실행하기 위해서는 아래 코드를 터미널 창에서 실행  
 
 > ng serve
@@ -590,7 +623,7 @@ news와 article을 만들 것
 article 모델은 특정 웹 사이트에서 가져온 기사를 나타냄  
 news 모델은 기사를 감싸고 있는 모델로 기사 배열을 가지고 있음  
 
-애플리케이션 초기 바인딩을 보여주기 위한 테이터를 하드코딩  
+애플리케이션 초기 바인딩을 보여주기 위한 데이터를 하드코딩  
 
 {% highlight javascript %}
 {
@@ -600,19 +633,19 @@ news 모델은 기사를 감싸고 있는 모델로 기사 배열을 가지고 �
    "articles":[
       {
          author:"Lakisha Jackson",
-            title:"Mike Williams denies report on season-ending surgery",
-            description:"Los Angeles Chargers first-round pick Mike Williams is denying reports that he might need season-ending back surgery.",
-            url:"http://www.nfl.com/news/story/0ap3000000821316/article/mike-williams-denies-report-on-seasonending-surgery",
-            urlToImage:"http://static.nfl.com/static/content/public/photo/2017/07/22/0ap3000000821315_thumbnail_200_150.jpg",
-            publishedAt:"2017-07-22T23:21:00Z"
+         title:"Mike Williams denies report on season-ending surgery",
+         description:"Los Angeles Chargers first-round pick Mike Williams is denying reports that he might need season-ending back surgery.",
+         url:"http://www.nfl.com/news/story/0ap3000000821316/article/mike-williams-denies-report-on-seasonending-surgery",
+         urlToImage:"http://static.nfl.com/static/content/public/photo/2017/07/22/0ap3000000821315_thumbnail_200_150.jpg",
+         publishedAt:"2017-07-22T23:21:00Z"
       },
       {
          author:"Jeremy Bergman",
-            title:"Tamba Hali, upset with snaps, launches tweetstorm",
-            description:"We've got ourselves a Saturday afternoon tweetstorm in late July, courtesy of Chiefs pass rusher Tamba Hali.",
-            url:"http://www.nfl.com/news/story/0ap3000000821309/article/tamba-hali-upset-with-snaps-launches-tweetstorm",
-            urlToImage:"http://static.nfl.com/static/content/public/photo/2017/07/22/0ap3000000821310_thumbnail_200_150.jpg",
-            publishedAt:"2017-07-22T20:30:00Z"
+         title:"Tamba Hali, upset with snaps, launches tweetstorm",
+         description:"We've got ourselves a Saturday afternoon tweetstorm in late July, courtesy of Chiefs pass rusher Tamba Hali.",
+         url:"http://www.nfl.com/news/story/0ap3000000821309/article/tamba-hali-upset-with-snaps-launches-tweetstorm",
+         urlToImage:"http://static.nfl.com/static/content/public/photo/2017/07/22/0ap3000000821310_thumbnail_200_150.jpg",
+         publishedAt:"2017-07-22T20:30:00Z"
       }
    ]
 }
@@ -686,22 +719,22 @@ HTML로 작성되며 해당 컴포넌트에 표현된 엘리먼트를 자세히 
 
 - @Component 데코레이션 안에 template 속성을 사용하고 HTML을 정의
 {% highlight typescript %}
-template: '<h1>article.title</h1>'
+   template: '<h1>article.title</h1>'
 {% endhighlight %}
 
 - HTML이 두줄 이상인 경우 ES2015 백틱(숫자1키보드 왼쪽 키)을 사용하여 여러줄로 정의 가능
 {% highlight typescript %}
-template:`
-      <li>
-         <div>
-            article.description
-         </div>
-      </li>`
+   template:`
+         <li>
+            <div>
+               article.description
+            </div>
+         </li>`
 {% endhighlight %}
 
 - 별도의 파일로 정의
 {% highlight typescript %}
-templateUrl: './new.component.html'
+   templateUrl: './new.component.html'
 {% endhighlight %}
 
 ### 컴포넌트 클래스
