@@ -51,19 +51,16 @@ es6에 새로 도입되었으며 간단한 익명 함수를 작성하게 해줌
 아래는 화살표 함수에서 파라미터를 관리 다양한 방법  
 
 - 빈 파라미터 : 파라미터가 없을 경우 빈 괄호를 사용
-    
     {% highlight typescript %}
     () => console.log('Hello World!!');
-    {% endhighlight %}
+{% endhighlight %}
 
 - 단일 파라미터 : 전달할 파라미터가 하나일 경우 괄호로 묶을 필요가 없음
-    
     {% highlight typescript %}
     id => console.log(id);
-    {% endhighlight %}
+{% endhighlight %}
 
 - 다중 파라미터 : 파라미터가 여러개 있는 경우 파라미터를 괄호로 묶어야 함 
-    
     {% highlight typescript %}
     (firstName:string,lastName:string) => firstName + ' ' + lastName;
-    {% endhighlight %}
+{% endhighlight %}
