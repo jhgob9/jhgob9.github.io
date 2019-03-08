@@ -99,7 +99,7 @@ each $x
 
 그래서 현대의 프로그래밍 언어는 대부분 코드만을 보고 분석과 이해가 쉬운 lexical scoping을 사용  
 
-**Javascript**
+**Javascript**  
 함수 또는 블록 레벨에서 유효범위를 결정하는 lexical scoping을 따르지만 this는 dynamic scoping 방식을 따르기 때문에 주의해야 함
 
 #### Javascript의 this
@@ -118,7 +118,7 @@ Pascal 형태의 대문자로 시작하는 함수를 만들고 new 키워드를 
 new로 만든 객체에는 this가 바인딩 됨
 생성자 함수를 만들때 함수명이 대문자일 필요는 없지만 생성자를 호출하려면 반드시 new 키워드를 사용
 {% highlight typescript %}
-   ftunction ConstructorFunc(msg){
+   function ConstructorFunc(msg){
       this.msg = msg;
    }
    ConstructorFunc.prototype.hello = function(){
@@ -131,7 +131,8 @@ new로 만든 객체에는 this가 바인딩 됨
 apply 함수를 사용해 호출하여 함수 내부에서 사용할 this를 지정하는 것
 apply 함수의 첫번째 인자로 null을 넘기면 전역 객체인 window가 this가 됨
 - bind에서 호출
-ES5에서 소개된 것으로 함수가 어떻게 호출되었는지 상곤없이 this값을 직접 정함 [참고사이트](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this){: target="_blank" }
+ES5에서 소개된 것으로 함수가 어떻게 호출되었는지 상곤없이 this값을 직접 정함
+[참고사이트](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this){: target="_blank" }
 
 
 
