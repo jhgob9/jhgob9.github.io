@@ -276,23 +276,47 @@ function getCustomer(property){
 클래스의 가장 중요한 기능은 애플리케이션 전체에서 사용 가능하고 재사용 가능한 코드를 캡슐화해서 제공 하는 것  
 상속 및 추상 클래스를 지원하고 동시에 생성자나 접근 제어자 또한 지원  
 
-''''typescript
-class Book{
-	public author:string;
-	public title:string;
-	public length:number;
-	setFullTitle():string{
-		return `${this.title} by ${this.author}`;
-	}
-}
-let typeScript = new Book();
-typeScript.title = 'TypeScript by Example';
-typeScript.author = 'Sachin Ohri';
-typeScript.length = 300;
-''''
+![]({{ "/assets/images/class.png" | absolute_url }})
 
 클래스는 class 키워드와 그 뒤에 클래스 이름으로 정의  
 그 다음 중괄호 안에 클래스와 관련된 프로퍼티와 메서드가 있음  
 클래스의 객체를 생성하려면 new 키워드와 객체의 이름을 사용  
 
 > 모든 public 프로퍼티와 메서드에 도트(.) 연산자를 사용하여 객체에 액세스 가능
+
+### 생성자
+
+클래스의 새 인트턴스를 초기화 하는데 사용  
+객체 생성 시 클래스의 프로퍼티에 초기 값을 전달해야한다면 생성자를 사용  
+생성자의 이름은 항상 constructor이어야 함  
+
+![]({{ "/assets/images/constructor.png" | absolute_url }})
+
+클래스의 새 인스턴트를 만들 때 생성자가 예상하는 파라미터를 전달  
+생성자는 직접 호출 하는 것이 아닌 클래스 이름과 new 키워드를 사용해서 호출  
+생성자 함수를 실행하고 클래스의 새 인스턴스를 반환  
+
+클래스당 하나의 생성자만 만들 수 있음  
+선택적 파라미터를 이용하면 생성자가 여러 형식을 가진 것처럼 작동 가능  
+
+{% highlight typescript %}
+constructor(author:string, title:string, length?:number){}
+{% endhighlight %}
+
+#### 생성자 파라미터
+
+생성자 프로퍼티를 사용하면 간단한 방법으로 클래스에서 프로퍼티를 정의하고 할당할 수 있음  
+위의 코드를 생성자 파리미터를 생성하면 아래 코드와 같다  
+
+![]({{ "/assets/images/constructor2.png" | absolute_url }})
+
+### 프로퍼티와 메서드
+
+클래스와 인터페이스의 중요한 차이점 중의 하나는 클래스에 메서드의 실제 구현이 포함되어 있는지 여부  
+
+#### 프로퍼티
+
+클래스의 프로퍼티를 정의하는 두가지 방법이 있음  
+
+첫번째는 위의 예제와 같고 도트(.) 구문을 사용하여 프로퍼티의 값을 설정하고 가져올 수 있음
+두번째는 사용자 지정 접근자를 사용하여 정의
