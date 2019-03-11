@@ -199,3 +199,56 @@ function Book(title: string, length:number=300){}
 
 length 파마리터를 작성하지 않고 호출하면 함수는 300으로 가정  
 기본 파라미터가 필수 파라미터의 마지막에 있을 경우 TypeScript는 해당 파라미터를 선택적 파라미터로 간주함  
+
+### 나머지(Rest) 파라미터
+
+함수에 가변 개수의 파라미터를 전달하고 배열로 사용 가능  
+파라미터 이름 앞에 생략부호(세개의 점)를 붙임으로서 정의  
+함수를 호출할 때 여러 개의 파라미터를 전달할 수 있으며 함수는 그것들을 배열 형식으로 받아들임  
+
+{% highlight typescript %}
+function School(name:string,...id:number[]) {}
+let harvard = new School('Havard', 1,2,3,4,5);
+{% endhighlight %}
+
+두 번째 이후 전달된 모든 파라미터는 number 배열에 합쳐짐  
+
+### 함수 오버로딩
+
+이름은 같지만 구현이 다른 여러 함수르 정의할 수 있게 해줌  
+TypeScript도 함수 오버로드를 지원하지만 구문과 구현이 다소 어색함  
+
+동일한 이름의 여러 함수를 정의하되 하나만 구현  
+구현된 함수는 모든 형태의 다른 함수 정의를 호출된 형태에 따라 처리함  
+다음 예제는 두개의 함수 오버로드와 모든 오버로드를 처리하는 하나의 구현을 정의  
+
+{% highlight typescript %}
+function getCustomer(name:string):string;
+function getCustomer(id:number):string;
+function getCustomer(property:any):string{
+	if (typeof property == 'string'){
+		// 고객 이름에 따라 고객 정보 반환
+	} else if (typeof property == 'number'){
+		// 고객 ID에 따라 고객 정보 반환
+	}
+	return "customer"
+}
+{% endhighlight %}
+
+getCustomer 함수는 두 가지 오버로드가 있음  
+첫번째는 문자열 입력 파라미터, 두번째는 숫자열 입력 파라미터, 세번째는 입력 파라미터로 any를 취하는 함수  
+세번째 함수는 전달된 파라미터를 typeof 기준으로 구분하겨 적절한 처리를 구현  
+아래는 위 코드를 Javascript로 변환한 코드  
+
+{% highlight javascript %}
+function getCustomer(property){
+	if (typeof property == 'string'){
+		// 고객 이름에 따라 고객 정보 반환
+	} else if (typeof property == 'number'){
+		// 고객 ID에 따라 고객 정보 반환
+	}
+	return "customer"
+}
+{% endhighlight %}
+
+---
