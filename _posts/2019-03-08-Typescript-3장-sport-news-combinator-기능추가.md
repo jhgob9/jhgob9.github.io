@@ -153,8 +153,8 @@ setTimeout(function () { typeScript.printTitle()},2000) // 메서드 호출
 
 위의 함수가 실행되면 다음과 같은 결과가 출력 됨
 
-> undefinedby Sachin Ohri
-> TypeScript By Exampleby Sachin Ohri
+> undefinedby Sachin Ohri  
+> TypeScript By Exampleby Sachin Ohri  
 
 9번 라인에서의 printTitle은 객체로부터 분리된 메서드 이기 때문에 함수 호출이 됨  
 이때 this는 window를 가르킴, 하지만 window의 title은 설정된 적이 없으므로 undefined가 됨  
@@ -164,3 +164,15 @@ title은 앞의 생성자 호출에 의해 설정된 "TypeScript By Example" 값
 
 화살표 함수는 위의 예처럼 실행 시에 범위를 지정하는 것이 아니라 선언 시에 this를 할당 함으로서 this의 스코핑 문제를 해결  
 아래는 화살표 함수를 사용하는 예인데 모두 "TypeScript By Exampleby Sachin Ohri"를 반환함  
+
+{% highlight typescript %}
+function Book(title){
+	this.title = title;
+	this.printTile = ()=> console.log(this.title + 'by Sachin Ohri');
+}
+var typeScript = new Book('TypeScript By Example');
+setTimeout(typeScript.printTitle, 1000); // 함수호출
+setTimeout(function () { typeScript.printTitle() }, 2000) // 메서드 호출
+{% endhighlight %}
+
+> 실행 당시의 컨텍스트 위에서 this 키워드를 사용해야 하는 경우 화살표 함수를 사용하면 안됨
