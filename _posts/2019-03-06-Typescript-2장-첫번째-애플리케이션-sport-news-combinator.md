@@ -637,7 +637,7 @@ news 모델은 기사를 감싸고 있는 모델로 기사 배열을 가지고 �
          description:"Los Angeles Chargers first-round pick Mike Williams is denying reports that he might need season-ending back surgery.",
          url:"http://www.nfl.com/news/story/0ap3000000821316/article/mike-williams-denies-report-on-seasonending-surgery",
          urlToImage:"http://static.nfl.com/static/content/public/photo/2017/07/22/0ap3000000821315_thumbnail_200_150.jpg",
-         publishedAt:"2017-07-22T23:21:00Z"
+         publishedAt:"2017-07-22"
       },
       {
          author:"Jeremy Bergman",
@@ -645,7 +645,7 @@ news 모델은 기사를 감싸고 있는 모델로 기사 배열을 가지고 �
          description:"We've got ourselves a Saturday afternoon tweetstorm in late July, courtesy of Chiefs pass rusher Tamba Hali.",
          url:"http://www.nfl.com/news/story/0ap3000000821309/article/tamba-hali-upset-with-snaps-launches-tweetstorm",
          urlToImage:"http://static.nfl.com/static/content/public/photo/2017/07/22/0ap3000000821310_thumbnail_200_150.jpg",
-         publishedAt:"2017-07-22T20:30:00Z"
+         publishedAt:"2017-07-22"
       }
    ]
 }
@@ -673,7 +673,7 @@ export class Article{
    description: string;
    url: string;
    urlToImage: string;
-   publishedAt: Date;
+   publishedAt: string;
 }
 {% endhighlight %}
 
