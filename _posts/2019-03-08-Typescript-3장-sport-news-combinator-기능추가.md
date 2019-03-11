@@ -276,20 +276,20 @@ function getCustomer(property){
 클래스의 가장 중요한 기능은 애플리케이션 전체에서 사용 가능하고 재사용 가능한 코드를 캡슐화해서 제공 하는 것  
 상속 및 추상 클래스를 지원하고 동시에 생성자나 접근 제어자 또한 지원  
 
-{% highlight typescript %}
+''''typescript
 class Book{
 	public author:string;
 	public title:string;
 	public length:number;
 	setFullTitle():string{
-		return `$₩{₩this.title₩}₩ by $₩{₩this.author₩}₩`;
+		return `${this.title} by ${this.author}`;
 	}
 }
 let typeScript = new Book();
 typeScript.title = 'TypeScript by Example';
 typeScript.author = 'Sachin Ohri';
 typeScript.length = 300;
-{% endhighlight %}
+''''
 
 클래스는 class 키워드와 그 뒤에 클래스 이름으로 정의  
 그 다음 중괄호 안에 클래스와 관련된 프로퍼티와 메서드가 있음  
