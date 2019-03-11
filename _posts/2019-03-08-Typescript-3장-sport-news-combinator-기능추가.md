@@ -131,11 +131,236 @@ new로 만든 객체에는 this가 바인딩 됨
 apply 함수를 사용해 호출하여 함수 내부에서 사용할 this를 지정하는 것
 apply 함수의 첫번째 인자로 null을 넘기면 전역 객체인 window가 this가 됨
 - bind에서 호출
-ES5에서 소개된 것으로 함수가 어떻게 호출되었는지 상곤없이 this값을 직접 정함
+ES5에서 소개된 것으로 함수가 어떻게 호출되었는지 상관없이 this값을 직접 정함  
 [참고사이트](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this){: target="_blank" }
 
+#### 화살표 함수에서의 this 키워드
+
+전통적인 JavaScript에서 this 키워드의 스코프는 함수가 실행될 때를 기준으로 함  
+
+{% highlight typescript linenos %}
+function Book(title) {
+	this.title = title;
+	this.printTitle = function() {
+		this.title = this.title + 'by Sachin Ohri';
+		console.log(this.title)
+	}
+}
+var typeScript = new Book('TypeScript By Example');
+setTimeout(typeScript.printTitle, 1000); // 함수호출
+setTimeout(function () { typeScript.printTitle()},2000) // 메서드 호출
+{% endhighlight %}
+
+위의 함수가 실행되면 다음과 같은 결과가 출력 됨
+
+{% highlight %}
+undefinedby Sachin Ohri
+TypeScript By Exampleby Sachin Ohri
+{% endhighlight %}
+
+9번 라인에서의 printTitle은 객체로부터 분리된 메서드 이기 때문에 함수 호출이 됨  
+이때 this는 window를 가르킴, 하지만 window의 title은 설정된 적이 없으므로 undefined가 됨  
+
+10번 라인의 printTitle은 메서드 호출이므로 this는 메서드의 상위 스코프인 typeScript 객체를 가르킴  
+title은 앞의 생성자 호출에 의해 설정된 "TypeScript By Example" 값을 더해 "TypeScript By Exampleby Sachin Ohri"가 됨  
+
+화살표 함수는 위의 예처럼 실행 시에 범위를 지정하는 것이 아니라 선언 시에 this를 할당 함으로서 this의 스코핑 문제를 해결  
+아래는 화살표 함수를 사용하는 예인데 모두 "TypeScript By Exampleby Sachin Ohri"를 반환함  
+
+{% highlight typescript %}
+function Book(title){
+	this.title = title;
+	this.printTile = ()=> console.log(this.title + 'by Sachin Ohri');
+}
+var typeScript = new Book('TypeScript By Example');
+setTimeout(typeScript.printTitle, 1000); // 함수호출
+setTimeout(function () { typeScript.printTitle() }, 2000) // 메서드 호출
+{% endhighlight %}
+
+> 실행 당시의 컨텍스트 위에서 this 키워드를 사용해야 하는 경우 화살표 함수를 사용하면 안됨
+
+### 선택적(Optional)/기본(default) 파라미터
+
+JavaScript는 함수의 모든 파라미터가 선택적임  
+TypeScript는 옵션이라고 명시적으로 선억하지 않으면 파라미터가 반드시 필요함  
+
+다음 예제에서 length는 선택적 파라미터  
+
+{% highlight typescript %}
+function Book(title: string, length?:number){}
+{% endhighlight %}
+
+파라미터 뒤에 ?를 추가  
+선택적 파라미터는 모든 필수 파라미터가 정의된 후 마지막에만 허용  
+
+기본 파라미터를 사용하면 선택적 파라미터 또는 필수 파라미터에 기본 값을 지정 가능  
+
+{% highlight typescript %}
+function Book(title: string, length:number=300){}
+{% endhighlight %}
+
+length 파마리터를 작성하지 않고 호출하면 함수는 300으로 가정  
+기본 파라미터가 필수 파라미터의 마지막에 있을 경우 TypeScript는 해당 파라미터를 선택적 파라미터로 간주함  
 
 
+### 나머지(Rest) 파라미터
+
+함수에 가변 개수의 파라미터를 전달하고 배열로 사용 가능  
+파라미터 이름 앞에 생략부호(세개의 점)를 붙임으로서 정의  
+함수를 호출할 때 여러 개의 파라미터를 전달할 수 있으며 함수는 그것들을 배열 형식으로 받아들임  
+
+{% highlight typescript %}
+function School(name:string,...id:number[]) {}
+let harvard = new School('Havard', 1,2,3,4,5);
+{% endhighlight %}
+
+두 번째 이후 전달된 모든 파라미터는 number 배열에 합쳐짐  
+
+### 함수 오버로딩
+
+이름은 같지만 구현이 다른 여러 함수르 정의할 수 있게 해줌  
+TypeScript도 함수 오버로드를 지원하지만 구문과 구현이 다소 어색함  
+
+동일한 이름의 여러 함수를 정의하되 하나만 구현  
+구현된 함수는 모든 형태의 다른 함수 정의를 호출된 형태에 따라 처리함  
+다음 예제는 두개의 함수 오버로드와 모든 오버로드를 처리하는 하나의 구현을 정의  
+
+{% highlight typescript %}
+function getCustomer(name:string):string;
+function getCustomer(id:number):string;
+function getCustomer(property:any):string{
+	if (typeof property == 'string'){
+		// 고객 이름에 따라 고객 정보 반환
+	} else if (typeof property == 'number'){
+		// 고객 ID에 따라 고객 정보 반환
+	}
+	return "customer"
+}
+{% endhighlight %}
+
+getCustomer 함수는 두 가지 오버로드가 있음  
+첫번째는 문자열 입력 파라미터, 두번째는 숫자열 입력 파라미터, 세번째는 입력 파라미터로 any를 취하는 함수  
+세번째 함수는 전달된 파라미터를 typeof 기준으로 구분하겨 적절한 처리를 구현  
+아래는 위 코드를 Javascript로 변환한 코드  
+
+{% highlight javascript %}
+function getCustomer(property){
+	if (typeof property == 'string'){
+		// 고객 이름에 따라 고객 정보 반환
+	} else if (typeof property == 'number'){
+		// 고객 ID에 따라 고객 정보 반환
+	}
+	return "customer"
+}
+{% endhighlight %}
+
+---
+
+## 타입스크립트의 클래스
+
+객체지향 프로그래밍을 위해 다음과 같은 기능을 제공  
+
+- 상속
+- 다형성
+- 캡슐화
+- 추상화
 
 
+### 클래스의 정의
 
+클래스는 관련(related)된 프로퍼티와 메서드로 구성된 논리적 컨테이너  
+독립적인 구조를 가진 모든 항목들을 논리적으로 묶어서 코드를 조직화하는데 도움을 줌  
+
+객체를 만드는데 사용되는 프로퍼티와 메서드를 포함하여 템플릿 형태로 구성됨  
+각 객체는 동일한 프로퍼티와 메서드를 가짐  
+클래스의 가장 중요한 기능은 애플리케이션 전체에서 사용 가능하고 재사용 가능한 코드를 캡슐화해서 제공 하는 것  
+상속 및 추상 클래스를 지원하고 동시에 생성자나 접근 제어자 또한 지원  
+
+{% highlight typescript %}
+class Book{
+	public author:string;
+	public title:string;
+	public length:number;
+	setFullTitle():string{
+		return `${this.title} by ${this.author}`;
+	}
+}
+let typeScript = new Book();
+typeScript.title = 'TypeScript by Example';
+typeScript.author = 'Sachin Ohri';
+typeScript.length = 300;
+{% endhighlight %}
+
+클래스는 class 키워드와 그 뒤에 클래스 이름으로 정의  
+그 다음 중괄호 안에 클래스와 관련된 프로퍼티와 메서드가 있음  
+클래스의 객체를 생성하려면 new 키워드와 객체의 이름을 사용  
+
+> 모든 public 프로퍼티와 메서드에 도트(.) 연산자를 사용하여 객체에 액세스 가능
+
+### 생성자
+
+클래스의 새 인트턴스를 초기화 하는데 사용  
+객체 생성 시 클래스의 프로퍼티에 초기 값을 전달해야한다면 생성자를 사용  
+생성자의 이름은 항상 constructor이어야 함  
+
+{% highlight typescript %}
+class Book{
+	public author:string;
+	public title:string;
+	public length:number;
+	constructor(author:string, title:string, length:number){
+		this.author = author;
+		this.title = title;
+		this.length = length;
+	}
+	setFullTitle():string{
+		return `${this.title} by ${this.author}`;
+	}
+}
+let typeScript = new Book('TypeScript by Example', 'Sachin Ohri', 300);
+{% endhighlight %}
+
+클래스의 새 인스턴트를 만들 때 생성자가 예상하는 파라미터를 전달  
+생성자는 직접 호출 하는 것이 아닌 클래스 이름과 new 키워드를 사용해서 호출  
+생성자 함수를 실행하고 클래스의 새 인스턴스를 반환  
+
+클래스당 하나의 생성자만 만들 수 있음  
+선택적 파라미터를 이용하면 생성자가 여러 형식을 가진 것처럼 작동 가능  
+
+{% highlight typescript %}
+constructor(author:string, title:string, length?:number){}
+{% endhighlight %}
+
+#### 생성자 파라미터
+
+생성자 프로퍼티를 사용하면 간단한 방법으로 클래스에서 프로퍼티를 정의하고 할당할 수 있음  
+위의 코드를 생성자 파리미터를 생성하면 아래 코드와 같다  
+
+{% highlight typescript %}
+class Book{
+	constructor(
+		public author:string,
+		public title: string,
+		public length:number
+	){
+		this.author = author;
+		this.title = title;
+		this.length = length;
+	}
+	setFullTitle():string{
+		return `${this.title} by ${this.author}`;
+	}
+}
+let typeScript = new Book('TypeScript by Example', 'Sachin Ohri', 300);
+{% endhighlight %}
+
+### 프로퍼티와 메서드
+
+클래스와 인터페이스의 중요한 차이점 중의 하나는 클래스에 메서드의 실제 구현이 포함되어 있는지 여부  
+
+#### 프로퍼티
+
+클래스의 프로퍼티를 정의하는 두가지 방법이 있음  
+
+첫번째는 위의 예제와 같고 도트(.) 구문을 사용하여 프로퍼티의 값을 설정하고 가져올 수 있음
+두번째는 사용자 지정 접근자를 사용하여 정의
