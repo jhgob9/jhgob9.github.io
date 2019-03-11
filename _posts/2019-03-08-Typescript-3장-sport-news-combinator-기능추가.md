@@ -176,3 +176,26 @@ setTimeout(function () { typeScript.printTitle() }, 2000) // 메서드 호출
 {% endhighlight %}
 
 > 실행 당시의 컨텍스트 위에서 this 키워드를 사용해야 하는 경우 화살표 함수를 사용하면 안됨
+
+### 선택적(Optional)/기본(default) 파라미터
+
+JavaScript는 함수의 모든 파라미터가 선택적임  
+TypeScript는 옵션이라고 명시적으로 선억하지 않으면 파라미터가 반드시 필요함  
+
+다음 예제에서 length는 선택적 파라미터  
+
+{% highlight typescript %}
+function Book(title: string, length?:number){}
+{% endhighlight %}
+
+파라미터 뒤에 ?를 추가  
+선택적 파라미터는 모든 필수 파라미터가 정의된 후 마지막에만 허용  
+
+기본 파라미터를 사용하면 선택적 파라미터 또는 필수 파라미터에 기본 값을 지정 가능  
+
+{% highlight typescript %}
+function Book(title: string, length:number=300){}
+{% endhighlight %}
+
+length 파마리터를 작성하지 않고 호출하면 함수는 300으로 가정  
+기본 파라미터가 필수 파라미터의 마지막에 있을 경우 TypeScript는 해당 파라미터를 선택적 파라미터로 간주함  
