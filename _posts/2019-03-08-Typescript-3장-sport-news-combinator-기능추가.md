@@ -133,3 +133,48 @@ apply 함수의 첫번째 인자로 null을 넘기면 전역 객체인 window가
 - bind에서 호출
 ES5에서 소개된 것으로 함수가 어떻게 호출되었는지 상관없이 this값을 직접 정함  
 [참고사이트](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this){: target="_blank" }
+
+#### 화살표 함수에서의 this 키워드
+
+전통적인 JavaScript에서 this 키워드의 스코프는 함수가 실행될 때를 기준으로 함  
+
+{% highlight typescript linenos %}
+function Book(title) {
+	this.title = title;
+	this.printTitle = function() {
+		this.title = this.title + 'by Sachin Ohri';
+		console.log(this.title)
+	}
+}
+var typeScript = new Book('TypeScript By Example');
+setTimeout(typeScript.printTitle, 1000); // 함수호출
+setTimeout(function () { typeScript.printTitle()},2000) // 메서드 호출
+{% endhighlight %}
+
+위의 함수가 실행되면 다음과 같은 결과가 출력 됨
+
+{% highlight %}
+undefinedby Sachin Ohri
+TypeScript By Exampleby Sachin Ohri
+{% endhighlight %}
+
+9번 라인에서의 printTitle은 객체로부터 분리된 메서드 이기 때문에 함수 호출이 됨  
+이때 this는 window를 가르킴, 하지만 window의 title은 설정된 적이 없으므로 undefined가 됨  
+
+10번 라인의 printTitle은 메서드 호출이므로 this는 메서드의 상위 스코프인 typeScript 객체를 가르킴  
+title은 앞의 생성자 호출에 의해 설정된 "TypeScript By Example" 값을 더해 "TypeScript By Exampleby Sachin Ohri"가 됨  
+
+화살표 함수는 위의 예처럼 실행 시에 범위를 지정하는 것이 아니라 선언 시에 this를 할당 함으로서 this의 스코핑 문제를 해결  
+아래는 화살표 함수를 사용하는 예인데 모두 "TypeScript By Exampleby Sachin Ohri"를 반환함  
+
+{% highlight typescript %}
+function Book(title){
+	this.title = title;
+	this.printTile = ()=> console.log(this.title + 'by Sachin Ohri');
+}
+var typeScript = new Book('TypeScript By Example');
+setTimeout(typeScript.printTitle, 1000); // 함수호출
+setTimeout(function () { typeScript.printTitle() }, 2000) // 메서드 호출
+{% endhighlight %}
+
+> 실행 당시의 컨텍스트 위에서 this 키워드를 사용해야 하는 경우 화살표 함수를 사용하면 안됨
