@@ -282,7 +282,7 @@ class Book{
 	public title:string;
 	public length:number;
 	setFullTitle():string{
-		return `$\{this.title\} by $\{this.author\}`;
+		return `$₩{₩this.title₩}₩ by $₩{₩this.author₩}₩`;
 	}
 }
 let typeScript = new Book();
