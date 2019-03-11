@@ -252,3 +252,39 @@ function getCustomer(property){
 {% endhighlight %}
 
 ---
+
+## 타입스크립트의 클래스
+
+객체지향 프로그래밍을 위해 다음과 같은 기능을 제공  
+
+- 상속
+- 다형성
+- 캡슐화
+- 추상화
+
+### 클래스의 정의
+
+클래스는 관련(related)된 프로퍼티와 메서드로 구성된 논리적 컨테이너  
+독립적인 구조를 가진 모든 항목들을 논리적으로 묶어서 코드를 조직화하는데 도움을 줌  
+
+객체를 만드는데 사용되는 프로퍼티와 메서드를 포함하여 템플릿 형태로 구성됨  
+각 객체는 동일한 프로퍼티와 메서드를 가짐  
+클래스의 가장 중요한 기능은 애플리케이션 전체에서 사용 가능하고 재사용 가능한 코드를 캡슐화해서 제공 하는 것  
+상속 및 추상 클래스를 지원하고 동시에 생성자나 접근 제어자 또한 지원  
+
+{% highlight typescript %}
+{% raw %}
+class Book{
+	public author:string;
+	public title:string;
+	public length:number;
+	setFullTitle():string{
+		return `${this.title} by ${this.author}`;
+	}
+}
+let typeScript = new Book();
+typeScript.title = 'TypeScript by Example';
+typeScript.author = 'Sachin Ohri';
+typeScript.length = 300;
+{% endraw %}
+{% endhighlight %}
