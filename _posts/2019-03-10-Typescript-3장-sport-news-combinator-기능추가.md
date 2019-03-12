@@ -106,31 +106,31 @@ each $x
 
 Javascript의 this는 함수의 호출 방식에 따라 값이 달라짐
 
-- 함수에서 호출
+- 함수에서 호출  
 this는 상위 스코프가 따로 없기 때문에 전역개체를 가르키는데 브라우져에서는 window, 다만 ECMAScript 5.1에서 엄격모드(use strict)를 사용하면 this는 undefined
-- 메서드에서 호출
-객체 안에서 정의한 함수를 호출하는 것, 메서드 호출을 사용하려면 반드시 속성 접근자를 사용해야 함
-obj.myFunc(); 형태로 호출하면 메서드가 실행
-var someFunc = obj.myFunc; someFunc(); 형태로 호출하거나 setTimeout(obj.myFunc,1000) 형태로 호출하면 메서드가 객체로 부터 분리되어 함수 형태로 호출
-myFunc 메서드 안에 innerFunc를 정의한 경우 역시 innerFunc는 메서드가 아니라 함수가 됨
-- 생성자에서 호출
-Pascal 형태의 대문자로 시작하는 함수를 만들고 new 키워드를 사용해 해당 함수르 호출하는 객체를 만드는 것
-new로 만든 객체에는 this가 바인딩 됨
-생성자 함수를 만들때 함수명이 대문자일 필요는 없지만 생성자를 호출하려면 반드시 new 키워드를 사용
+- 메서드에서 호출  
+객체 안에서 정의한 함수를 호출하는 것, 메서드 호출을 사용하려면 반드시 속성 접근자를 사용해야 함  
+obj.myFunc(); 형태로 호출하면 메서드가 실행  
+var someFunc = obj.myFunc; someFunc(); 형태로 호출하거나 setTimeout(obj.myFunc,1000) 형태로 호출하면 메서드가 객체로 부터 분리되어 함수 형태로 호출  
+myFunc 메서드 안에 innerFunc를 정의한 경우 역시 innerFunc는 메서드가 아니라 함수가 됨  
+- 생성자에서 호출  
+Pascal 형태의 대문자로 시작하는 함수를 만들고 new 키워드를 사용해 해당 함수르 호출하는 객체를 만드는 것  
+new로 만든 객체에는 this가 바인딩 됨  
+생성자 함수를 만들때 함수명이 대문자일 필요는 없지만 생성자를 호출하려면 반드시 new 키워드를 사용  
 {% highlight typescript %}
-   function ConstructorFunc(msg){
-      this.msg = msg;
-   }
-   ConstructorFunc.prototype.hello = function(){
-      console.log(this.msg) // 생성자 호출 패턴에 의해 this를 사용할 수 있다.
-   }
-   var obj = new ConstructorFunc('Hello World!!')
-   obj.hello() // Hello World!!
+function ConstructorFunc(msg){
+	this.msg = msg;
+}
+ConstructorFunc.prototype.hello = function(){
+	console.log(this.msg) // 생성자 호출 패턴에 의해 this를 사용할 수 있다.
+}
+var obj = new ConstructorFunc('Hello World!!')
+obj.hello() // Hello World!!
 {% endhighlight %}
-- apply에서 호출
-apply 함수를 사용해 호출하여 함수 내부에서 사용할 this를 지정하는 것
-apply 함수의 첫번째 인자로 null을 넘기면 전역 객체인 window가 this가 됨
-- bind에서 호출
+- apply에서 호출  
+apply 함수를 사용해 호출하여 함수 내부에서 사용할 this를 지정하는 것  
+apply 함수의 첫번째 인자로 null을 넘기면 전역 객체인 window가 this가 됨  
+- bind에서 호출  
 ES5에서 소개된 것으로 함수가 어떻게 호출되었는지 상관없이 this값을 직접 정함  
 [참고사이트](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this){: target="_blank" }
 
