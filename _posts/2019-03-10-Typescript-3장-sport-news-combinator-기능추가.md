@@ -237,7 +237,7 @@ function getCustomer(property:any):string{
 
 getCustomer 함수는 두 가지 오버로드가 있음  
 첫번째는 문자열 입력 파라미터, 두번째는 숫자열 입력 파라미터, 세번째는 입력 파라미터로 any를 취하는 함수  
-세번째 함수는 전달된 파라미터를 typeof 기준으로 구분하겨 적절한 처리를 구현  
+세번째 함수는 전달된 파라미터를 typeof 기준으로 구분하여 적절한 처리를 구현  
 아래는 위 코드를 Javascript로 변환한 코드  
 
 {% highlight javascript %}
