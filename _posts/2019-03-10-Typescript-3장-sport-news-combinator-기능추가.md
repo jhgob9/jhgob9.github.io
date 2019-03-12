@@ -1,6 +1,6 @@
 ---
 title: "[Typescript] 3장 Sport News Combinator 기능추가"
-date: 2019-03-08 10:40:00 +0900
+date: 2019-03-10 10:40:00 +0900
 categories: typescript
 ---
 
