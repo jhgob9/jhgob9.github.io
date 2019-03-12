@@ -492,7 +492,7 @@ class TypeScript extends Book{
 부모 클래스에서 공통적인 동작을 정의하고 하위 클래스에서 차이를 관리 할 수 있게 하는 것  
 대규모 객체지향 어플리케이션 작성시 매우 유용  
 
-{% highlight typescript %}
+{% highlight typescript linenos %}
 {% raw %}
 abstract class Book{
 	constructor(
