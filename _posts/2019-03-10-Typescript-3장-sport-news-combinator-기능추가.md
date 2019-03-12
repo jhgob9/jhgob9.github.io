@@ -132,7 +132,7 @@ apply 함수를 사용해 호출하여 함수 내부에서 사용할 this를 지
 apply 함수의 첫번째 인자로 null을 넘기면 전역 객체인 window가 this가 됨  
 - bind에서 호출  
 ES5에서 소개된 것으로 함수가 어떻게 호출되었는지 상관없이 this값을 직접 정함  
-[참고사이트](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this){: target="_blank" }
+[참고사이트](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this){: target="_blank" }
 
 #### 화살표 함수에서의 this 키워드
 
