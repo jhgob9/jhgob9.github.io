@@ -180,7 +180,7 @@ setTimeout(function () { typeScript.printTitle() }, 2000) // 메서드 호출
 ### 선택적(Optional)/기본(default) 파라미터
 
 JavaScript는 함수의 모든 파라미터가 선택적임  
-TypeScript는 옵션이라고 명시적으로 선억하지 않으면 파라미터가 반드시 필요함  
+TypeScript는 옵션이라고 명시적으로 선언하지 않으면 파라미터가 반드시 필요함  
 
 다음 예제에서 length는 선택적 파라미터  
 
