@@ -1,6 +1,6 @@
 ---
 title: "[Typescript] 4장 Sport News Combinator"
-date: 2019-03-10 10:40:00 +0900
+date: 2019-03-13 10:40:00 +0900
 categories: typescript
 ---
 
