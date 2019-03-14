@@ -428,7 +428,7 @@ NewsComponent에 공급자를 등록하면 NewsComponent와 하위 컴포넌트�
   ],
   imports: [
     BrowserModule,
-	HttpModule
+		HttpClientModule
   ],
   providers: [NewsapiService],
   bootstrap: [AppComponent]
@@ -456,7 +456,6 @@ NewsComponent 클래스에서 서비스를 사용할 필요가 있으므로 생�
 */app/dashboard/news/news.component.ts*  
 
 {% highlight typescript %}
-import {NewsapiService} from '../../service/newsapi.service';
 constructor(private _service:NewsapiService){}
 {% endhighlight %}
 
@@ -512,10 +511,10 @@ news.component.ts에서 HTTP 응답에 대한 구독
 
 {% highlight typescript %}
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class NewsapiService {
-	constructor(private _http: Http) {}
+	constructor(private _http: HttpClient) {}
 }
 {% endhighlight %}
 
@@ -534,29 +533,26 @@ HTTP GET이 observable을 반환하기 때문에 fetchNewsFeed 메서드는 News
 {% highlight typescript %}
 {% raw %}
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-
-import { News } from '../../models/news';
+import { map, catchError, tap } from 'rxjs/operators';
 
 @Injectable()
 export class NewsapiService {
+	static apiKey = 'b07f98f6575d47d99fd6057668f21cb2';
 	baseUrl: string;
-
-	static apiKey: string = "b07f98f6575d47d99fd6057668f21cb2";
-	constructor(private _http: Http) {
+	constructor(private _http: HttpClient) {
 		this.baseUrl = 'https://newsapi.org/v1/articles';
 	}
-	public fetchNewsFeed(source: string): Observable<News> {
-		return this._http.get(`${this.baseUrl}/?source=${source}&sortBy=top&apiKey=${NewsapiService.apiKey}`)
-			.map((response: Response) => <News>response.json())
-			.do(data => console.log('All: ' + JSON.stringify(data)))
-			.catch(this.handleError);
-	}
+	// 웹 서버에서 데이터를 가져오는 역할을 하는 메서드
+	public fetchNewsFeed(source: string): Observable < News > {
+		console.log(`${this.baseUrl}/?source=${source}&sortBy=top&apiKey=${NewsapiService.apiKey}`);
+		return this._http.get(`${this.baseUrl}/?source=${source}&sortBy=top&apiKey=${NewsapiService.apiKey}`).pipe(
+			map((response: Response) => <News> response),
+			tap(data => console.log('All: ' + JSON.stringify(data))),
+			catchError(this.handleError)
+		);	}
 	private handleError(error: Response) {
 		console.error(error);
 		return Observable.throw(error.json().error || 'Server error');
@@ -575,9 +571,9 @@ URL은 baseUrl, source, sortBy, apiKey로 구성
 상위 10개 뉴스를 가져올 것이므로 sortBy 값은 top  
 3. GET 메서드가 Observable을 반환하므로 map 연산자를 사용  
 fetchNewsFeed 메서드에서 호출하여 받은 응답은 뉴스 모델로 형 변환  
-4. do 함수에서는 응답 데이터를 디버깅 용도로 콘솔에 출력  
+4. tap 함수에서는 응답 데이터를 디버깅 용도로 콘솔에 출력  
 5. 예외처리  
-catch 연산자를 사용하여 호출에 실패할 경우 catch 블록의 handleError 실행
+catchError 연산자를 사용하여 호출에 실패할 경우 catch 블록의 handleError 실행
 6. 오류의 내용을 기록한 다음 반환된 에러메세지를 throw하는 에러 핸들러 함수 작성  
 
 실시간 웹서비스를 가져올 준비가 됨, 그러나 그전에 fetchNewsFeed 메서드에서 반환되는 Observable을 구독해야 함  
@@ -760,13 +756,15 @@ router-outlet 이라는 지시자는 라우트의 컴포넌트를 출력할 위�
 </div>
 {% endhighlight %}
 
-#### NewsComponent에서 라우트 접근
+#### NewsComponent에서 라우트 접근 및 서비스 주입
 
-마지막 단계로서 선택한 메뉴의 뉴스 아울렛에서 웹 서비스 호출을 통해 뉴스 기사를 가져오는 것 
+마지막 단계로서 선택한 메뉴의 뉴스 아울렛에서 웹 서비스 호출을 통해 뉴스 기사를 가져오고 route 서비스를 주입  
 
 */app/dashboard/news/news.component.ts*  
 
 {% highlight typescript linenos %}
+import { ActivatedRoute } from '@angular/router';
+constructor(private _service: NewsapiService, private route: ActivatedRoute) { }
 ngOnInit() {
 	this.route.data.subscribe(data => {
 		this.feedType = (data as any).feedType;
