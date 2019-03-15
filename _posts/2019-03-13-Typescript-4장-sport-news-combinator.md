@@ -483,7 +483,7 @@ Observable은 백엔드 요소가 채워지는 비동기 배열
 
 전체 응답을 한꺼번에 보내는 대신 덩어리로 전송되는 웹 응답을 처리할 수 있음  
 Observable을 배열의 형태로 관리하면 map, catch, do와 같은 연산자를 사용하여 효과적으로 응답을 처리  
-Reactive Extension을 사용하면 HTTP에서 새로운 데이터 스트림이 도학할 때 알림을 받을 수 있는 observable을 구독 가능  
+Reactive Extension을 사용하면 HTTP에서 새로운 데이터 스트림이 도착할 때 알림을 받을 수 있는 observable을 구독 가능  
 데이터가 도착하면 Reactive Extension 라이브러리에서 제공하는 연산자를 사용하여 애플리케이션에 맞게 데이터를 수정할 수 있음  
 
 Observable은 일정 기간동안 들어오는 여러 값(데이터 스트림)을 처리  
