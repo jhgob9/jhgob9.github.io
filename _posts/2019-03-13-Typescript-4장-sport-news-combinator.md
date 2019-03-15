@@ -537,6 +537,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { map, catchError, tap } from 'rxjs/operators';
+import { News } from './../../module/news';
 
 @Injectable()
 export class NewsapiService {
@@ -638,7 +639,6 @@ app.route.ts 파일 생성후 위의 라우터 모듈 import
 
 {% highlight typescript %}
 import { ModuleWithProviders } from '@angular/core';
-import { newsroutingmodule } from './app.route';
 {% endhighlight %}
 
 ##### 애플리케이션 라우트
