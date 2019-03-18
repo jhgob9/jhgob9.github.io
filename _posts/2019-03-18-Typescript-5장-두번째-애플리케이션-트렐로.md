@@ -75,3 +75,133 @@ namespace WebSeriveResponse{}
 
 - 네임스페이스 아래 정의된 모든 함수와 클래스는 네임스페이스 외부에는 표시 안됨  
 
+![]({{ "/assets/images/namespace2.png" | absolute_url }})
+
+- 14행에서 WebServiceResponse에 WebResponse 속성이 없다는 Typescript 경고가 뜸
+- 10행에서는 네임스페이스 내부이기 때문에 WebResponse 클래스에 엑세스 가능
+
+#### export 키워드
+
+- export 키워드를 사용하여 네임스페이스 내부의 특정 멤버를 외부에 공개할 수 있음  
+
+{% highlight typescript %}
+namespace WebServiceResponse{
+	export class WebResponse{
+		getResponse(){
+			return 'Success'
+		}
+		sendResponse() {
+			return '200 OK'
+		}
+	}
+	let localResponse = new WebResponse();
+	localResponse.getResponse();
+	localResponse.sendResponse();
+}
+let response = new WebServiceResponse.WebResponse();
+response.getResponse();
+response.sendResponse();
+{% endhighlight %}
+
+#### 중첩(nested) 네임스페이스
+
+- 네임스페이스 안에 또 다시 네임스페이스를 추가하여 중첩된 캡슐화를 지원
+- 외부에 노출되는 중첩 네임스페이스에도 export 키워드가 붙어야 함  
+- 특정 기능 테스트나 하위 기능 테스트에 유용
+
+{% highlight typescript %}
+namespace WebServiceResponse{
+	let url: string;
+	export namespace ServiceResponse{ // 중첩 네임스페이스
+		export class WebResponse {
+			getResponse() {
+				return 'Success'
+			}
+			sendResponse() {
+				return '200 OK'
+			}
+		}
+	}
+	let localResponse = new ServiceResponse.WebResponse();
+	localResponse.getResponse();
+	localResponse.sendResponse();
+}
+let response = new WebServiceResponse.ServiceResponse.WebResponse(); // 외부네임스페이스.내부네임스페이스.내부클래스
+response.getResponse();
+response.sendResponse();
+{% endhighlight %}
+
+### Typescript 모듈
+
+- 모듈 장점 : 모듈로더를 사용할 수 있음, 비동기 동작을 제공, 결과적으로 애플리케이션의 속도를 높일 수 있음
+- 사용가능한 모듈로더가 몇가지 있으며 구문과 관리 방법이 각각 다름
+
+#### 정의
+
+- 모든 파일이 별도의 모듈이고 파일 이름이 모듈 이름
+- 파일을 생성하여 모듈을 만들 수 있음
+- 명시적으로 정의되지 않는 한 모듈 내부의 모든 컨텐츠는 캡슐화 되어 외부에서 접근 불가
+- 다음과 같은 코드로 service.ts 라는 파일을 만들면 service라는 모듈이 만들어지고 다른 모듈에서 이 모듈을 참조할 수 있음  
+
+{% highlight typescript %}
+interface iBoardService{
+	url:string;
+	getBoardInformation();
+}
+class BoardService{
+	url:string;
+	getBoardInformation(){
+		return '사용가능한 보드 없음';
+	}
+}
+let boardService = new BoardService();
+boardService.getBoardInformation();
+{% endhighlight %}
+
+#### 모듈 export
+
+- 모듈의 멤버를 공개하려면 export 키워드를 사용  
+- export를 사용하여 노출 시킬 멤버를 명시적으로 정의
+
+{% highlight typescript %}
+export class BoardService{
+	url:string;
+	getBoardInformation(){
+		return '사용가능한 보드 없음';
+	}
+}
+{% endhighlight %}
+
+#### 모듈 import
+
+- export 한 모듈을 사용하려면 명시적으로 다른 모듈에서 import 해야 함
+
+{% highlight typescript %}
+import { BoardService } from './module/service';
+{% endhighlight }
+
+- 필요한 모듈만 선택적으로 import 가능 
+- import를 하면 로컬멤버와 마찬가지로 사용 가능  
+
+{% highlight typescript %}
+import { BoardService } from './module/service';
+let board = new BoardService();
+board.getBoardInformation();
+{% endhighlight }
+
+- import 하는 멤버를 편리하게 사용할 수 있도록 멤버의 이름을 변경 할 수 있음
+
+{% highlight typescript %}
+import { BoardService as Service } from './module/service';
+let board = new Service();
+board.getBoardInformation();
+{% endhighlight }
+
+- import 할 멤버가 모듈의 export된 모든 멤버일 경우에는 별표를 사용하여 한번에 가져올 수도 있음 
+
+{% highlight typescript %}
+import * as Service from './module/service';
+let board = new Service.BoardService();
+board.getBoardInformation();
+let interface: Service.iBoardService;
+{% endhighlight }
