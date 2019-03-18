@@ -180,7 +180,7 @@ export class BoardService{
 {% raw %}
 import { BoardService } from './module/service';
 {% endraw %}
-{% endhighlight }
+{% endhighlight %}
 
 - 필요한 모듈만 선택적으로 import 가능 
 - import를 하면 로컬멤버와 마찬가지로 사용 가능  
@@ -191,7 +191,7 @@ import { BoardService } from './module/service';
 let board = new BoardService();
 board.getBoardInformation();
 {% endraw %}
-{% endhighlight }
+{% endhighlight %}
 
 - import 하는 멤버를 편리하게 사용할 수 있도록 멤버의 이름을 변경 할 수 있음
 
@@ -201,7 +201,7 @@ import { BoardService as Service } from './module/service';
 let board = new Service();
 board.getBoardInformation();
 {% endraw %}
-{% endhighlight }
+{% endhighlight %}
 
 - import 할 멤버가 모듈의 export된 모든 멤버일 경우에는 별표를 사용하여 한번에 가져올 수도 있음 
 
@@ -210,4 +210,4 @@ import * as Service from './module/service';
 let board = new Service.BoardService();
 board.getBoardInformation();
 let interface: Service.iBoardService;
-{% endhighlight }
+{% endhighlight %}
