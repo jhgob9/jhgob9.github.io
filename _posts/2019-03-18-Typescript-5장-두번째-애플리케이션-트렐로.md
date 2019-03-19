@@ -813,7 +813,7 @@ import { SubTask } from '../model/subtask';
 })
 export class TaskComponent implements OnInit {
 	@Input()
-	task: Task;
+	task: Task; // Task 컴포넌트의 task 프로퍼티를 노출 할 것임을 표시
 	@Input()
 	subTasks: SubTask[];
 	constructor() { }
