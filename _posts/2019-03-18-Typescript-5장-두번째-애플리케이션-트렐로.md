@@ -796,6 +796,8 @@ export class BoardComponent implements OnInit {
 
 - @Input 데코레이터 : 하위 컴포넌트가 부모 컴포넌트에게 프로퍼티를 노출할 수 있도록 함
 - 모든 프로퍼티가 대상이 됨
+- TaskComponent에는 외부에 노출할 task 프로퍼티가 있음
+- BoardComponent는 특정 작업을 task 프로퍼티에 지정하여 작업 템플릿을 채우는데 사용  
 
 */app/task/task.component.ts*  
 
