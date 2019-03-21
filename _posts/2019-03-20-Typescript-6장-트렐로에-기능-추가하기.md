@@ -348,8 +348,8 @@ export class TrelloService {
 		if (this.Boards == undefined) {
 			return this._http.get(this._boardUrl).toPromise()
 				.then((response: Response) => {
-					this.Boards = response.json() as unknown as Board[];
-					return response.json() as unknown as Board[];
+					this.Boards = response as unknown as Board[];
+					return response as unknown as Board[];
 				});
 		} else {
 			return Promise.resolve(this.Boards);
