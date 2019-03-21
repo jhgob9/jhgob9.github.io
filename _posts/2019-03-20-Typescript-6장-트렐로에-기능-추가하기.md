@@ -259,7 +259,8 @@ let p = callAsyncFunction(1).then(x=>console.log(x)).catch(errorMsg=>console.log
 
 #### 보드 JSON  
 - /src/api/board 경로에 다음과 같이 json 파일 생성  
-*boards.json*  
+
+*/src/api/boardboards.json*  
 {% highlight json %}
 ...
 [
@@ -336,6 +337,7 @@ export class TrelloService {
 
 #### HTTP 호출 로직  
 - _http 객체를 사용하여 웹 서비스 호출  
+
 */src/app/service/trello.service.ts*  
 {% highlight typescript linenos %}
 ...
@@ -365,6 +367,7 @@ export class TrelloService {
 ### 홈페이지 컴포넌트에서 호출하기  
 - 이전 장에서는 homepage.component.ts 에서 trello.service.ts의 seedData 메서드를 호출해서 데이터를 가져왔음  
 - 이것을 프로미스를 사용하는 새로운 메서드로 대체  
+
 */src/app/homepage/homepage.component.ts*  
 {% highlight typescript %}
 ...
@@ -411,6 +414,7 @@ export class HomepageComponent implements OnInit {
 - 작업 추가 입력 상자를 캡슐화 하는 div  
 - enableAddtask, addtaskOnEnter, addtaskOnBlur 세가지 함수  
 - addtaskText 프로퍼티 - 사용자가 입력한 텍스트  
+
 */src/app/board/board.component.ts*  
 
 ##### enableAddtask 함수  
@@ -526,6 +530,7 @@ export class BoardComponent implements OnInit {
 {% endhighlight %}
 - 새로운 작업을 추가할 때와 동일한 이벤트를 처리  
 - 하위 작업을 작업 목록에 추가하는 것  
+
 */src/app/task/task.component.ts*  
 {% highlight typescript %}
 ...
@@ -581,8 +586,10 @@ export class TaskComponent implements OnInit {
 ### 보드, 작업, 하위 작업의 제목 변경하기  
 - 이벤트를 처리하고 각 프로퍼티를 업데이트 하는 로직은 세 컴포넌트 모두 비슷  
 - 자세한 코드는 [Github](https://github.com/sachinohri/SampleTrelloApplication/tree/master/Chapter6){:target="_blank"}에서 확인  
+
 #### 보드 제목 변경하기  
 - 보드 제목을 클릭하면 제목을 바꿀수 있는 기능 구현  
+
 */src/app/board/board.component.html*  
 {% highlight html %}
 {% raw %}
@@ -595,6 +602,7 @@ export class TaskComponent implements OnInit {
 {% endhighlight %}
 - 사용자가 작업의 제목(span)을 클릭하면 editTitle을 호출  
 - keyup, blur 이벤트로 보드 제목을 내부적으로 업데이트 하도록 함  
+
 */src/app/board/board.component.ts*  
 {% highlight typescript %}
 ...
@@ -632,6 +640,7 @@ export class BoardComponent implements OnInit {
 - 내장 파이프를 사용하면 별도의 import 없이 사용  
 - 파이프 기호 뒤에 원하는 함수명 입력  
 - task.title 프로퍼티에 uppercase 파이프 함수를 사용  
+
 */src/app/task/task.component.html*  
 {% highlight html %}
 {% raw %}
