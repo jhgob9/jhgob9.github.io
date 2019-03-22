@@ -234,13 +234,15 @@ console.log('비동기 작업 호출 전');
 let p = callAsyncFunction(1).then(x=>console.log(x));
 console.log('비동기 작업 호출 후');
 {% endhighlight %}
+
+[코드보기](https://codepen.io/nemohoon/pen/wOYQOV?editors=1111){:target="_blank"}  
+
 - async 함수가 프로미스 위에서 실행되기 때문에 결국은 프로미스를 반환  
 - 1행에서 async 키워드가 접두어로 사용되는 callAsyncFunction 함수는 컴파일러에게 함수 내부에 병렬 수행할 부분임을 알려줌  
 - 병렬로 수행되길 원하는 메서드는 doAsyncWork와 같이 await 키워드를 접두어로 사용  
 - callAsyncFunction 메서드는 문자열을 반환하므로 반환 타입은 컴파일러에 의해 Promise<string>으로 반환, 비동기 작업 수행 후 프로미스를 반환한다는 뜻  
 - 만약 callAsyncFunction 함수에서 return이 없었다면 Promise는 void 타입이었을 것  
 - callAsyncFunction 함수가 프로미스를 반환하기 때문에 프로미스 API의 then을 사용하여 함수의 반환값을 가져올 수 있음  
-[코드보기](https://codepen.io/nemohoon/pen/wOYQOV?editors=1111){:target="_blank"}  
 
 #### Async-await 에러 처리  
 - 프로미스와 동일하게 catch 메서드를 사용해 에러 처리  
