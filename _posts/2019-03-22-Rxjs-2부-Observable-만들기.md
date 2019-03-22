@@ -21,6 +21,7 @@ const number$ = new Observable(function subscribe(observer){
 number$.subscribe( v => console.log(v) );
 {% endhighlight %}
 [코드실행](https://codepen.io/nemohoon/pen/wOQRLW){:target="_black"}  
+
 **Observable.create 정적 메소드**  
 Observable 생성자의 별칭으로 Observable.create를 제공  
 {% highlight typescript %}
@@ -40,7 +41,7 @@ number$.subscribe( v => console.log(v) );
 - Observable은 자신이 구독하고 있는 observer에게 데이터를 전달하기도 하지만 지금의 상태도 전달해야 함  
 - 이런 경우를 처리하기 위해 Observer는 next(전달), error(에러), complete(완료) 메소드를 가지고 있음  
 
-### 1.2.1. 에러발생  
+### 1.2.1. 에러발생
 {% highlight typescript %}
 const { Observable } = rxjs;
 const number$ = new Observable(function subscribe(observer){
@@ -62,7 +63,7 @@ number$.subscribe({
 [코드실행](https://codepen.io/nemohoon/pen/GewzNZ){:target="_black"}  
 - Observer.error가 호출되면 Observer와의 구독을 자동으로 해지  
 
-### 1.2.2. 데이터 전달이 완료 된 경우  
+### 1.2.2. 데이터 전달이 완료 된 경우
 {% highlight typescript %}
 const { Observable } = rxjs;
 const number$ = new Observable(function subscribe(observer){
@@ -116,14 +117,17 @@ setTimeout(function(){
 
 ---
 
-## 1.3. rxjs 네임스페이에 있는 생성 함수로 Observable 만들기  
+## 1.3. rxjs 네임스페이스에 있는 생성 함수로 Observable 만들기  
 - RxJS 에서는 Observable 생성시 반복적으로 고려해야 할 것들에 대한 처리를 미리 해놓은 함수를 rxjs 네임스페이스에서 제공  
+
 > 가급적 Observable을 생성할 때는 rxjs 네임스페이스에서 제공하는 생성 함수를 이용  
 
 ### 1.3.1. of  
 - 각각의 단일 데이터 값을 전달하는 Observable을 만들 때 사용  
 - 모든 값이 전달되면 complete을 호출하고 구독을 자동으로 해제  
+
 > of(value: ...T, scheduler: Scheduler): Observable<T>  
+
 {% highlight typescript %}
 const { of } = rxjs;
 
@@ -140,7 +144,9 @@ of(10,20,30)
 - 범위 내 수의 값들을 전달하는 Observable을 만들 때 사용  
 - 범위(start~count) 내의 값을 1씩 증가시킨 숫자 데이터를 전달  
 - 모든 값이 전달되면 complete을 호출하고 구독을 자동으로 해제  
+
 > range(start: number, count: number, scheduler: Scheduler): Observable  
+
 {% highlight typescript %}
 const { range } = rxjs;
 
@@ -155,7 +161,9 @@ range(1,10)
 
 ### 1.3.3. fromEvent  
 - 브라우져에서 발생하는 Event를 Observable을 만들 때 사용  
+
 > fromEvent(target: EventTargetLike, eventName: string, options: EventListenerOptions, selector: SelectorMethodSignature<T>): Observable<T>  
+
 {% highlight typescript %}
 const { fromEvent } = rxjs;
 
@@ -173,6 +181,7 @@ const subscription = click$.subscribe({
 
 ### 1.3.4. from  
 - 배열, 배열 같은 객체, iterable 객체, Promise등 거의 모든 데이터를 Observable을 만들 때 사용  
+
 > from(ish: ObservableInput<T>, scheduler: Scheduler): Observable<T>  
 
 #### (1) 배열, 배열 같은 객체  
@@ -239,7 +248,9 @@ fail$.subscribe({
 ### 1.3.5. interval  
 - 지정된 시간 간격마다 0부터 1씩 증가하는 데이터를 만드는 Observable을 만들 때 사용  
 - 에니메이션과 같이 일정 간격의 시간마다 데이터 변경이 일어나는 작업을 할 때 주로 사용  
+
 > interval(period: number, scheduler: Scheduler): Observable  
+
 {% highlight typescript %}
 const { interval } = rxjs;
 
@@ -263,7 +274,9 @@ interval(1000)
 ### 1.4.1. empty  
 - Observable 완료 상태를 전달하는 Observable을 생성  
 - 항상 동일한 Observable 인스턴스를 반환  
+
 > empty(scheduler: Scheduler): Observable  
+
 - empty 함수 내부의 코드는 다음과 같음  
 {% highlight typescript %}
 Observable.creat(observer => {
@@ -290,7 +303,9 @@ of(1,-1,3).pipe(
 ### 1.4.2. throwError  
 - Observable 에러 상태를 전달하는 Observable을 생성  
 - 항상 동일한 Observable 인스턴스를 반환  
+
 > throwError(error: any, scheduler: Scheduler): Observable  
+
 - throwError 함수 내부의 코드는 다음과 같음  
 {% highlight typescript %}
 const error; // 전달된 error 데이터
@@ -318,7 +333,9 @@ of(1,-1,3).pipe(
 ### 1.4.3. never  
 - 아무것도 하지 않는 Observable을 생성  
 - 항상 동일한 Observable 인스턴스를 반환  
+
 > never(scheduler: Scheduler): Observable  
+
 - never 함수 내부의 코드는 다음과 같음  
 {% highlight typescript %}
 const error; // 전달된 error 데이터
