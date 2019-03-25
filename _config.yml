@@ -54,7 +54,7 @@ paginate_path: /page:num/
 search_full_content: true # can have performance implications for large sites
 
 # Taxonomy pages
-# category_archive_path: "/categories/#"
+category_archive_path: "/categories/#"
 # tag_archive_path: "/tags/#"
 
 # Exclude from processing.
