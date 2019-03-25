@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 # theme: jekyll-theme-so-simple
 remote_theme: mmistakes/so-simple-theme
-locale: ko
+locale: ko-KR
 title: "Typescript & RxJs 스터디 블로그"
 description: "Typescript와 RxJs의 스터디 내용을 기록하는 블로그입니다."
 baseurl: # the subpath of your site, e.g. "/blog"
