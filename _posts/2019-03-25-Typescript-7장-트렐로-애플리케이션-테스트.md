@@ -105,7 +105,7 @@ categories: typescript
 테스트 케이스를 작성하고 관리하는 여러 기능을 제공  
 
 - describe()
-	- 테스트 집한의 컨테이너 역할
+	- 테스트 집합의 컨테이너 역할
 	- 자스민은 describe 함수를 테스트 케이스의 루트로 인식
 	-케이스 실행의 시작지점
 - beforeEach()
