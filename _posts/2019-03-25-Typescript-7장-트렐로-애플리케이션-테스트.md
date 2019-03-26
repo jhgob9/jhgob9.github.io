@@ -711,7 +711,7 @@ beforeEach(() => {
 	component = fixture.componentInstance;
 	fixture.detectChanges();
 });
-{% ednhighlight %}
+{% endhighlight %}
 
 - 홈페이지 컴포넌트를 생성하고 이를 컴포넌트 fixture에 할당
 - fixture에서 컴포넌트인스턴스를 component 변수에 할당
