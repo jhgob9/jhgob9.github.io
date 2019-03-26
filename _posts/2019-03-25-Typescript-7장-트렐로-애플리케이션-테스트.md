@@ -782,10 +782,10 @@ it('새 보드 생성', () => {
 	const compiled = fixture.debugElement.nativeElement;
 	const title = compiled.querySelectorAll('.title');
 	expect(title.length).toBe(2);
-	expect(title[0].textContent).toContain('새 보드');
+	expect(title[0].textContent).toContain('New Board');
 });
 {% endhighlight %}
 
 - 컴포넌트에서 addBoard 메서드를 호출한 다음 Angular가 바인딩을 새로 고치도록 하기 위해 detectChanges 메서드를 호출
 - 정상적으로 완료 되면 expect 문으로 보드의 수가 한개인지 title이 있는 두 개의 엘리먼트가 있는지 확인
-- 마지막 행에서 첫 번째 새로운 보드가 새 보드라는 컨텐츠를 가졌는지 확인
+- 마지막 행에서 첫 번째 새로운 보드가 New Board라는 컨텐츠를 가졌는지 확인
