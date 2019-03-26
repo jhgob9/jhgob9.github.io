@@ -403,7 +403,7 @@ describe('Trello HTTP Service', () => {
 
 #### beforeEach 함수
 
-{% highlight typescript %}
+{% highlight typescript linenos %}
 beforeEach(() => {
 	mockHTTP = jasmine.createSpyObj('mockHTTP', ['get']);
 	trelloService = new TrelloService(mockHTTP);
