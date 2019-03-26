@@ -18,6 +18,7 @@ categories: rxjs
 - 함수와 Observable의 쓰임새를 통해 Observable의 특징을 알아봄
 
 {% highlight javascript %}
+{% raw %}
 // foo 라는 함수를 사용하려고 하면 foo라는 이름으로 함수를 정의
 function foo(value){
 	console.log(`I am function ${value}`)
@@ -34,6 +35,7 @@ xhr.onload = function(){
 	const result = foo(afterAjaxResult);
 	console.log(result);
 }
+{% endraw %}
 {% endhighlight %}
 
 - `정의`한 함수는 `호출`이라는 과정을 통해 결과 데이터를 받는 시점을 `지연` 할수 있음
@@ -64,6 +66,7 @@ number$.subscribe(value=>console.log(value));
 - 시간 차를 두고 2번 구독하여 각각 데이터를 전달하는 예
 
 {% highlight typescript %}
+{% raw %}
 const { interval } = rxjs;
 const number$ = interval(1000);
 
@@ -73,6 +76,7 @@ number$.subscribe(value=>console.log(`첫 번째 ${value}`));
 setTimeout(()=>{
 	number$.subscribe(value=>console.log(`두 번째 ${value}`));
 },2000);
+{% endraw %}
 {% endhighlight %}
 
 - 함수와 다른 점
@@ -121,6 +125,7 @@ promise.then(
 	- 사용자에게는 Lazy 하게 동작하는 것 처럼 보이지만 실제로는 그렇지 않음
 
 {% highlight typescript %}
+{% raw %}
 const promise = new Promise((resolve,reject)=>{
 	console.log('프로미스 생성');
 	try{
@@ -145,11 +150,13 @@ promise.then(
 // 프로미스 생성
 // 첫 번째 promise 1
 // 두 번째 promise 1
+{% endraw %}
 {% endhighlight %}
 
 - 위의 코드를 Observable로 작성
 
 {% highlight typescript %}
+{% raw %}
 const { Observable } = rxjs;
 const number$ = Observable.create(observer=>{
 	console.log('creat observable');
@@ -171,6 +178,7 @@ number$.subscribe(
 	value => console.log(`두 번째 observable ${value}`),
 	error => console.log(`두 번째 observable ${error}`)
 );
+{% endraw %}
 {% endhighlight %}
 [코드실행](https://codepen.io/nemohoon/pen/WmWwLx){:target="_blank"}
 
@@ -183,6 +191,7 @@ number$.subscribe(
 - Promise는 취소를 위한 인터페이스가 없지만 Observable은 취소를 위한 인터페이스를 제공
 
 {% highlight typescript %}
+{% raw %}
 const promise = new Promise((resolve,reject)=>{
 	try{
 		let value = 0;
@@ -198,6 +207,7 @@ const promise = new Promise((resolve,reject)=>{
 promise.then(
 	value => console.log(`promise value ${value}`)
 );
+{% endraw %}
 {% endhighlight %}
 [코드실행](https://codepen.io/nemohoon/pen/EMJyzq){:target="_blank"}
 
@@ -206,6 +216,7 @@ promise.then(
 - 동일한 기능을 Observable로 만들기
 
 {% highlight typescript %}
+{% raw %}
 const { Observable } = rxjs;
 const obj$ = new Observable(observer=>{
 	let id;
@@ -231,6 +242,7 @@ const subscription = obj$.subscribe(
 
 // 3초 후에 observable의 구독을 취소
 setTimeout(()=>subscription.unsubscribe(),3000);
+{% endraw %}
 {% endhighlight %}
 [코드실행](https://codepen.io/nemohoon/pen/aMxmzb){:target="_blank"}
 
