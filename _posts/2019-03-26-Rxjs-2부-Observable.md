@@ -6,7 +6,7 @@ categories: rxjs
 
 # 2부 Chapter 03. Observable
 
-지금까지 다른 Observable의 특징
+지금까지 다룬 Observable의 특징
 
 - 모든 데이터는 Observable 인스턴스로 만들 수 있음
 - Observable은 읽기 전용(read-only)
@@ -58,7 +58,7 @@ const number$ = interval(1000);
 // subscribe가 호출되는 순간부터 데이터가 전달 됨
 number$.subscribe(value=>console.log(value));
 {% endhighlight %}
-[코드보기](https://codepen.io/nemohoon/pen/NJmxBo){:target="_blank"}
+[코드실행](https://codepen.io/nemohoon/pen/NJmxBo){:target="_blank"}
 
 - Observable도 `정의`를 하고 `구독`이라는 과정을 통해 데이터를 받을 시점을 `지연`
 - 여러번 구독하더라도 정의부가 매번 호출되어 `동일한 값` 데이터 결과를 반환
@@ -78,6 +78,7 @@ setTimeout(()=>{
 },2000);
 {% endraw %}
 {% endhighlight %}
+[코드실행](https://codepen.io/nemohoon/pen/GeLZRY){:target="_blank"}
 
 - 함수와 다른 점
 	- 함수는 호출 시 반환값이 한 개, Observable은 Observer.next를 호출하여 구독 이후 여러 개의 데이터를 전달 가능
@@ -129,8 +130,8 @@ promise.then(
 const promise = new Promise((resolve,reject)=>{
 	console.log('프로미스 생성');
 	try{
-		resolve(1)
-	} catch(e){
+		resolve(1);
+	} catch(e) {
 		reject('error promise');
 	}
 });
@@ -138,20 +139,15 @@ const promise = new Promise((resolve,reject)=>{
 // then은 결정된 상태값만 반환
 promise.then(
 	value => console.log(`첫 번째 promise ${value}`),
-	error = console.error(`첫 번째 promise ${error}`)
+	error => console.error(`첫 번째 promise ${error}`)
 );
-
 promise.then(
 	value => console.log(`두 번째 promise ${value}`),
-	error = console.error(`두 번째 promise ${error}`)
+	error => console.error(`두 번째 promise ${error}`)
 );
-
-// 콘솔 출력 결과
-// 프로미스 생성
-// 첫 번째 promise 1
-// 두 번째 promise 1
 {% endraw %}
 {% endhighlight %}
+[코드실행](https://codepen.io/nemohoon/pen/drLMXe){:target="_blank"}
 
 - 위의 코드를 Observable로 작성
 
@@ -255,7 +251,7 @@ setTimeout(()=>subscription.unsubscribe(),3000);
 ## 1.3. 함수 vs Observable vs Promise
 
 | 구분 | 함수 | Observable | Promise |
-| | | | |
+| --- | --- | --- | --- |
 | 정의 | 함수 선언 | Observable 객체 생성 | Promise 객체 생성 |
 | 호출 | 함수 호출 | Observable.subscribe | Promise.then |
 | 호출 시 정의부 실행 여부 | 매번 정의부 실행 | 매번 정의부 실행 | 생성시 단 한번 호출 |
