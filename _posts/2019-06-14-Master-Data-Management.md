@@ -10,6 +10,8 @@ categories: Graphdatabase
 > 정형/비정형 데이터를 동일한 저장엔진으로 하나의 데이터베이스에서 조회, 처리, 분석이 가능한 멀티 모델 그래프 데이터베이스  
 > 데이터의 잠재가치를 활용하고 안정적이고 유연한 그래프 모델 구축  
 
+- 정형 데이터 : 형태(스키마)가 있고 연산이 가능한 데이터(ex. 스프레드시트)
+- 비정형 데이터 : 형태도 없고 연산도 불가능 데이터(ex. 소셜데이터, 이미지, 동영상)
 
  ![AgensGraph Use Case #4.  MDM(Master Data Management) 편](https://t1.daumcdn.net/cfile/tistory/99363A4D5B5910060F)
 
